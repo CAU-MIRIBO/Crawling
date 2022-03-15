@@ -1,0 +1,1 @@
+print('plz plz I want freedom')
