@@ -1,8 +1,9 @@
+from tkinter import EW
 from urllib import request
 import requests
 from bs4 import BeautifulSoup
 
-url='https://stackoverflow.com/questions/33238091/test-if-children-tag-exists-in-beautifulsoup'
+
 def stackOverflow_process(soup):
     # print(soup)
     
@@ -32,29 +33,31 @@ def stackOverflow_process(soup):
     selected_ans_content=selected_ans_container.find(attrs={'class' : 's-prose js-post-body'})
     answer_text=selected_ans_content.text
 
-    
-    
-    # print(ques_text)
-    # print(soup.text)
     return ques, ques_content, answer_text
 
-response=requests.get(url)
-if response.status_code==200:
-    html=response.text
-    soup=BeautifulSoup(html, 'html.parser')
-    question, ques_detail, answer=stackOverflow_process(soup)
+# For Debugging        
+def print_test_result(question, ques_detail, answer):
     
-else:
-    print(response.status_code)
+    print('================process done========================')
+    print('-----Question-----------')
+    print(question)
+    print(ques_detail)
+    print('-------------answer---------------')
+    print(answer)
     
+    
+def request_through_url(url):
+    response=requests.get(url)
+    if response.status_code==200:
+        html=response.text
+        soup=BeautifulSoup(html, 'html.parser')
+        question, ques_detail, answer=stackOverflow_process(soup)
+        print_test_result(question, ques_detail, answer)
+        
+    else:
+        print(response.status_code)
+        
 
-# For Debugging
-print('================process done========================')
-print('-----Question-----------')
-print(question)
-print(ques_detail)
-print('-------------answer---------------')
-print(answer)
-
-
+url='https://stackoverflow.com/questions/33238091/test-if-children-tag-exists-in-beautifulsoup'
+request_through_url(url)
     
