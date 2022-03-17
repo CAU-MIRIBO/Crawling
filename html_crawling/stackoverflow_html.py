@@ -17,6 +17,9 @@ def stackOverflow_process(soup):
     ques_content2=ques_content1.find(attrs={'class':'s-prose js-post-body'})
     ques_content=ques_content2.text
     
+    #질문 부분의 댓글에 대해서도 생각해보기
+    
+    
     #get selected answer
     ans_container=soup.find(attrs={'id': 'answers'})
     
@@ -25,10 +28,23 @@ def stackOverflow_process(soup):
     #if there is selected answer
     if ans_container.find(attrs={'class': 'answer js-answer accepted-answer'}):
         selected_ans_container=ans_container.find(attrs={'class': 'answer js-answer accepted-answer'})
+        
     else:
         #if there is no selected answer
         print('-----------currently no selected answer---------------')
+        all_answers=ans_container.find_all(attrs={'class':'answer js-answer'})
         
+        # get max data-score answer
+        score_list=[]
+        for (i, lst) in enumerate(all_answers):
+            score_list.append(int(lst.attrs['data-score']))
+        
+        selected_ans_index=score_list.index(max(score_list))
+        selected_ans_container=all_answers[selected_ans_index]
+        
+        print('a')
+    
+    # 답변의 댓글에 대해서도 생각해봐야한다
         
     selected_ans_content=selected_ans_container.find(attrs={'class' : 's-prose js-post-body'})
     answer_text=selected_ans_content.text
@@ -58,6 +74,6 @@ def request_through_url(url):
         print(response.status_code)
         
 
-url='https://stackoverflow.com/questions/33238091/test-if-children-tag-exists-in-beautifulsoup'
+url='https://stackoverflow.com/questions/82831/how-do-i-check-whether-a-file-exists-without-exceptions?rq=1'
 request_through_url(url)
     
