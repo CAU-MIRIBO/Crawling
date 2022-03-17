@@ -34,7 +34,7 @@ def stackOverflow_process(soup):
         print('-----------currently no selected answer---------------')
         all_answers=ans_container.find_all(attrs={'class':'answer js-answer'})
         
-        # get max data-score answer
+        # select answer with max data-score
         score_list=[]
         for (i, lst) in enumerate(all_answers):
             score_list.append(int(lst.attrs['data-score']))
