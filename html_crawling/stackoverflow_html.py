@@ -2,7 +2,7 @@ from urllib import request
 import requests
 from bs4 import BeautifulSoup
 
-url='https://stackoverflow.com/questions/133698/why-does-fatal-error-lnk1104-cannot-open-file-c-program-obj-occur-when-i-c'
+url='https://stackoverflow.com/questions/33238091/test-if-children-tag-exists-in-beautifulsoup'
 def stackOverflow_process(soup):
     # print(soup)
     
@@ -18,7 +18,17 @@ def stackOverflow_process(soup):
     
     #get selected answer
     ans_container=soup.find(attrs={'id': 'answers'})
-    selected_ans_container=ans_container.find(attrs={'class': 'answer js-answer accepted-answer'})
+    
+    # if there is no answer at all
+    
+    #if there is selected answer
+    if ans_container.find(attrs={'class': 'answer js-answer accepted-answer'}):
+        selected_ans_container=ans_container.find(attrs={'class': 'answer js-answer accepted-answer'})
+    else:
+        #if there is no selected answer
+        print('-----------currently no selected answer---------------')
+        
+        
     selected_ans_content=selected_ans_container.find(attrs={'class' : 's-prose js-post-body'})
     answer_text=selected_ans_content.text
 
