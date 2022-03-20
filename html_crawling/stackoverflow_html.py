@@ -27,7 +27,10 @@ def stackOverflow_process(soup):
     ans_container=soup.find(attrs={'id': 'answers'})
     
     # if there is no answer at all
-    # --> 답변이 아예 없을 경우 대처 방안
+    # --> 답변이 아예 없을 경우 대처 방안 :: ouptut null
+    if not ans_container.find(attrs={'class' : 's-prose js-post-body'}):
+        return ques_header, ques_content, 0
+
     
     #if there is selected answer
     if ans_container.find(attrs={'class': 'answer js-answer accepted-answer'}):
@@ -85,6 +88,6 @@ def request_through_url(url):
         print(response.status_code)
         
 
-url='https://stackoverflow.com/questions/4706499/how-do-you-append-to-a-file?rq=1'
+url='https://stackoverflow.com/questions/71546746/how-to-execute-javascript-code-when-any-page-is-loaded-chrome-extension'
 ques_head, ques_content, answer=request_through_url(url)
     
