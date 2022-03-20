@@ -3,9 +3,22 @@ from urllib import request
 import requests
 from bs4 import BeautifulSoup
 
-def quora_process(url):
-    ques=0
+def quora_process(soup):
+    
+    q_head=soup.head
+    q_title=q_head.find(attrs={'property':'og:title'})
+    q_type=q_head.find(attrs={'property':"og:type"})
+    q_image=q_head.find(attrs={'property':'og:image'})
+    q_description=q_head.find(attrs={'property':'og:description'})
+    
+    q_body=soup.body
+    q_content=q_body.find(attrs={'class':'q-text qu-display--block qu-wordBreak--break-word qu-textAlign--start'})
+    q_text=q_body.text
+    
+    p_text=q_body.find_all('p')
+    ques=q_title
     answer=0
+    
     return ques, answer
 
 def request_through_url(url):
