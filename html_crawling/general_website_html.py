@@ -5,7 +5,14 @@ import requests
 from bs4 import BeautifulSoup
 
 def general_process(soup):
-    return A
+    
+    g_head=soup.head
+    g_title=g_head.find(attrs={'property':'og:title'})
+    g_container=soup.body
+    g_content=g_container.find(attrs={'class':'e-content post-content'})
+    contents=g_content.text
+    
+    return g_title, contents
 
 def request_through_url(url):
     response=requests.get(url)
@@ -28,3 +35,6 @@ def print_test_result(title, contents):
     print('\n-------------Answer---------------\n')
     print(contents)
     print('\n')
+
+url='https://leejh0624.tistory.com/316'
+ques, answer=request_through_url(url)
