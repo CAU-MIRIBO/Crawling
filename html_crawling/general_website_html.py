@@ -4,12 +4,15 @@ from urllib import request
 import requests
 from bs4 import BeautifulSoup
 
+from gensim.summarization.summarizer import summarize
+from newspaper import Article
+
 def general_process(soup):
     
     g_head=soup.head
     g_title=g_head.find(attrs={'property':'og:title'})
     g_container=soup.body
-    g_content=g_container.find(attrs={'class':'e-content post-content'})
+    g_content=g_container #.find(attrs={'class':'e-content post-content'})
     contents=g_content.text
     
     return g_title, contents
