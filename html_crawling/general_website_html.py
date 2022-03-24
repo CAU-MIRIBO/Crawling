@@ -4,8 +4,8 @@ from urllib import request
 import requests
 from bs4 import BeautifulSoup
 
-from gensim.summarization.summarizer import summarize
-from newspaper import Article
+# from gensim.summarization.summarizer import summarize
+# from newspaper import Article
 
 def general_process(soup):
     
