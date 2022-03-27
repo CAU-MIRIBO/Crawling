@@ -47,7 +47,7 @@ def print_test_result(title, contents):
 
 
 
-url='https://www.hani.co.kr/arti/culture/culture_general/1023318.html'
+url='https://www.hani.co.kr/arti/society/health/1036414.html?_fr=mt1'
 # 'https://www.ajunews.com/view/20211215155407703'
     
 request_through_url(url)
