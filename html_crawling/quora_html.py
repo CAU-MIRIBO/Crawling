@@ -12,9 +12,10 @@ def quora_process(soup):
     q_description=q_head.find(attrs={'property':'og:description'})
     
     q_body=soup.body
-    q_content=q_body.find(attrs={'class':'q-text qu-display--block qu-wordBreak--break-word qu-textAlign--start'})
+    q_content=q_body.find(attrs={'class':'q-box spacing_log_answer_content puppeteer_test_answer_content'})
     q_text=q_body.text
     
+    print(q_body)
     p_text=q_body.find_all('p')
     ques=q_title
     answer=0
