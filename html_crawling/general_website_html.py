@@ -1,23 +1,25 @@
-from re import A
-from tkinter import EW
 from urllib import request
 import requests
 from bs4 import BeautifulSoup
 from newspaper import Article
+#import nltk
 
 # from gensim.summarization.summarizer import summarize
 # from newspaper import Article
 
 def crawling_article(soup):
+    
+    # nltk.download()
     article=Article(url)
     article.download()
 
-    print(article.html)
+    # print(article.html)
     article.parse()
     title=article.title
     contents=article.text
     
     # print(article.text)
+    # article.nlp()
     if article.keywords:
         a_keywords=article.keywords
         
@@ -27,6 +29,11 @@ def crawling_article(soup):
     
     return title, contents
 
+def article_nlp(art):
+    art.nlp()
+    print()
+    
+    
 def header_process(soup):
     # g_title=g_head.find(attrs={'property':'og:title'})
     # g_container=soup.body
@@ -51,9 +58,9 @@ def request_through_url(url):
 def print_test_result(title, contents):
     
     print('================process done========================')
-    print('\n----------Question Header-----------\n')
+    print('\n----------Title-----------\n')
     print(title)
-    print('\n-------------Answer---------------\n')
+    print('\n-------------Content---------------\n')
     print(contents)
     print('\n')
 
@@ -62,5 +69,5 @@ def print_test_result(title, contents):
 url='https://www.hani.co.kr/arti/culture/culture_general/1023318.html'
 # 'https://www.ajunews.com/view/20211215155407703'
     
-request_through_url(url)
-print('process done')
+title, contents=request_through_url(url)
+print_test_result(title,contents)
