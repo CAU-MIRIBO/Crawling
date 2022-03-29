@@ -93,6 +93,7 @@ def request_with_selenium(Url):
     # Apply options
     driver = webdriver.Chrome(executable_path='C:\\Users\\hjson\\Downloads\\chromedriver.exe')
     # driver.implicitly_wait(3)
+    
     driver.get(Url)
     print(driver.current_url)
     
@@ -116,8 +117,9 @@ def print_test_result(title, contents):
 
 
 
-url='https://www.ajunews.com/view/20211215155407703'
+url='https://www.quora.com/How-is-the-culture-of-Jeju-Island-different-from-the-rest-of-South-Korea'
 # 'https://www.hani.co.kr/arti/culture/culture_general/1023318.html'
+# 'https://www.ajunews.com/view/20211215155407703'
 
 
 # title, contents=request_through_url(url)
