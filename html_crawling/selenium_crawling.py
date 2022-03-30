@@ -9,10 +9,7 @@ def request_with_selenium(Url):
     # options.add_argument('window-size=1920,1080')  
     
     # 창 띄우지 않기
-    # options.add_argument('headless')
-    
-    options.add_experimental_option("excludeSwitches", ["enable-logging"])
-    browser = webdriver.Chrome(options=options)
+    options.add_argument('headless')
      
     # Apply options
     driver = webdriver.Chrome(executable_path='C:\\Users\\hjson\\Downloads\\chromedriver.exe')
@@ -24,9 +21,9 @@ def request_with_selenium(Url):
     # 페이지 내에서 값 읽어오기
     body=driver.find_element_by_tag_name('body')
     body_text=body.text
-    # print(body_text)
+    print(body_text)
     
-    #driver.close()
+    driver.close()
     return body, driver
     
     # driver.implicitly_wait(time_to_wait=5)
