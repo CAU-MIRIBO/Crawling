@@ -38,6 +38,7 @@ def quora_process(url):
     for answ in q_answer_list:
         quo_answer.append(answ.text)
         print(answ.get_attribute('innerHTML'))
+        
         print(answ.text)
     
     # for debugging
