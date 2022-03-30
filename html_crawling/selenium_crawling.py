@@ -21,9 +21,9 @@ def request_with_selenium(Url):
     # 페이지 내에서 값 읽어오기
     body=driver.find_element_by_tag_name('body')
     body_text=body.text
-    print(body_text)
+    # print(body_text)
     
-    driver.close()
+    #driver.close()
     return body, driver
     
     # driver.implicitly_wait(time_to_wait=5)
