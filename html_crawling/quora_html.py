@@ -1,23 +1,32 @@
-from tkinter import EW
+# from tkinter import EW
 from urllib import request
 import requests
 from bs4 import BeautifulSoup
+from selenium_crawling import *
 
-def quora_process(soup):
+# quora needs selenium
+
+def quora_process(url):
     
-    q_head=soup.head
-    q_title=q_head.find(attrs={'property':'og:title'})
-    q_type=q_head.find(attrs={'property':"og:type"})
-    q_image=q_head.find(attrs={'property':'og:image'})
-    q_description=q_head.find(attrs={'property':'og:description'})
+    # q_head=soup.head
+    # q_title=q_head.find(attrs={'property':'og:title'})
+    # q_type=q_head.find(attrs={'property':"og:type"})
+    # q_image=q_head.find(attrs={'property':'og:image'})
+    # q_description=q_head.find(attrs={'property':'og:description'})
     
-    q_body=soup.body
-    q_content=q_body.find(attrs={'class':'q-box spacing_log_answer_content puppeteer_test_answer_content'})
-    q_text=q_body.text
+    # q_body=soup.body
+    # q_content=q_body.find(attrs={'class':'q-box spacing_log_answer_content puppeteer_test_answer_content'})
+    # q_text=q_body.text
     
-    print(q_body)
-    p_text=q_body.find_all('p')
-    ques=q_title
+    # print(q_body)
+    # p_text=q_body.find_all('p')
+    # ques=q_title
+    # answer=0
+    body=request_with_selenium(url)
+    
+    print('=============done===============')
+    
+    ques=0
     answer=0
     
     return ques, answer
@@ -45,4 +54,5 @@ def print_test_result(question, answer):
     print('\n')
 
 url='https://www.quora.com/How-is-the-culture-of-Jeju-Island-different-from-the-rest-of-South-Korea'
-ques, answer=request_through_url(url)
+# ques, answer=request_through_url(url)
+a,b=quora_process(url)
