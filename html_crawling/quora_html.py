@@ -22,13 +22,27 @@ def quora_process(url):
     # p_text=q_body.find_all('p')
     # ques=q_title
     # answer=0
-    body=request_with_selenium(url)
+    body, driver=request_with_selenium(url)
+    root_container=body.find_element_by_id('root')
     
-    print('=============done===============')
+    # q_title=root_container.find_element_by_xpath('//*[@id="mainContent"]/div[1]/div/div[1]/span/span/div/div/div')
+    # q_title=root_container.find_element_by_xpath('//body[contains(@class, question_title)]')
+    q_title=root_container.find_element_by_xpath('//*[@id="mainContent"]/div[1]/div')
+    
+    
+    # HTML 표시
+    html=root_container.get_attribute('innerHTML')
+    print(html)
+    print('====================')
+    print(q_title.get_attribute('innerHTML'))
+    
+    text=q_title.text
+    # print(text)
     
     ques=0
     answer=0
     
+    driver.close()
     return ques, answer
 
 def request_through_url(url):
