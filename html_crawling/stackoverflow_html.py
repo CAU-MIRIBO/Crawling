@@ -88,6 +88,6 @@ def request_through_url(url):
         print(response.status_code)
         
 
-url='https://stackoverflow.com/questions/71546746/how-to-execute-javascript-code-when-any-page-is-loaded-chrome-extension'
-ques_head, ques_content, answer=request_through_url(url)
+#url='https://stackoverflow.com/questions/71546746/how-to-execute-javascript-code-when-any-page-is-loaded-chrome-extension'
+#ques_head, ques_content, answer=request_through_url(url)
     
