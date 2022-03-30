@@ -1,6 +1,6 @@
 from newspaper import Article
 
-url='https://www.emerics.org:446/issueDetail.es?brdctsNo=326038&mid=a10200000000&systemcode=03'
+url='https://www.etnews.com/20220304000171?mc=ns_003_00001'
 
 article=Article(url)
 article.download()
