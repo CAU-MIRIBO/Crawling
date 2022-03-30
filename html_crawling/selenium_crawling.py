@@ -9,7 +9,10 @@ def request_with_selenium(Url):
     # options.add_argument('window-size=1920,1080')  
     
     # 창 띄우지 않기
-    options.add_argument('headless')
+    # options.add_argument('headless')
+    
+    options.add_experimental_option("excludeSwitches", ["enable-logging"])
+    browser = webdriver.Chrome(options=options)
      
     # Apply options
     driver = webdriver.Chrome(executable_path='C:\\Users\\hjson\\Downloads\\chromedriver.exe')
