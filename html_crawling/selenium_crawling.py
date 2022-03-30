@@ -24,6 +24,7 @@ def request_with_selenium(Url):
     print(body_text)
     
     driver.close()
+    return body, driver
     
     # driver.implicitly_wait(time_to_wait=5)
         
@@ -42,4 +43,4 @@ url='https://www.quora.com/How-is-the-culture-of-Jeju-Island-different-from-the-
 
 # print_test_result(title,contents)
 
-request_with_selenium(url)
+# request_with_selenium(url)
