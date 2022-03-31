@@ -81,7 +81,7 @@ def request_through_url(url):
         html=response.text
         soup=BeautifulSoup(html, 'html.parser')
         question, ques_detail, answer=stackOverflow_process(soup)
-        print_test_result(question, ques_detail, answer)
+        #print_test_result(question, ques_detail, answer)
         return question, ques_detail, answer
         
     else:

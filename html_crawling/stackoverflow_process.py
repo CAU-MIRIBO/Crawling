@@ -26,13 +26,18 @@ def extract_tag(html):
     #print(p)
     # matches=r"(<p.*/p>) (<pre.*/pre>)"
     body=re.findall('(?<=\<p>)(.*?)(?=<\/p>)|(?<=\<pre>)(.*?)(?=<\/pre>)',html1,re.I|re.S)
-    print(type(body)) #list
+    #print(type(body)) #list
     #body=body.group(0)
-    print(body)
+    #print(body)
     # p = re.compile('(?<=\<p>)(.*?)(?=<\/p>)|(?<=\<pre>)(.*?)(?=<\/pre>)')
     # p_tag_list = p.findall(html1)
     # print(p_tag_list)
 
     # for i in range(len(html1)):
     #     print(html[i])
+    for i in body:
+        print(i)
+
+extract_tag(str(ques_content))
+print("\n\n")
 extract_tag(str(answer))
