@@ -3,15 +3,17 @@ from urllib import request
 import requests
 from bs4 import BeautifulSoup
 from selenium_crawling import *
-import time
 
 # quora needs selenium
 
 def quora_process(url):
     
+    # outputs
     quo_ques=0
     quo_ques_cont=0
-    quo_answer=[]
+    quo_answer_list=[]
+    quo_full_answer=0
+    page_state=0
     
     body, driver=request_with_selenium(url)
     root_container=body.find_element_by_id('root')
@@ -31,19 +33,17 @@ def quora_process(url):
     q_answer_list=q_answer_box.find_all('p')        # click_more(q_answer_box)
     
     
-    
-    print(q_answer_box.text)
     for answ in q_answer_list:
-        quo_answer.append(answ.text)        
+        quo_answer_list.append(answ.text)        
         print(answ.text)
     
     # for debugging
-    print_paragraph(quo_answer)
+    print_paragraph(quo_answer_list)
     
     quo_ques=q_title
     
     driver.close()
-    return quo_ques, quo_ques_cont, quo_answer
+    return quo_ques, quo_ques_cont, quo_answer_list, quo_full_answer
     
 def get_meta_property(src):
     
@@ -86,6 +86,8 @@ def print_paragraph(answ):
     for a in answ:
         print(a)
 
-url='https://www.quora.com/How-is-the-culture-of-Jeju-Island-different-from-the-rest-of-South-Korea'
+url='https://www.quora.com/What-is-the-strangest-culture-shock-you-experienced-when-visiting-South-Korea-for-the-first-time'
 # ques, answer=request_through_url(url)
+# https://www.quora.com/How-is-the-culture-of-Jeju-Island-different-from-the-rest-of-South-Korea
+# https://www.quora.com/What-is-the-strangest-culture-shock-you-experienced-when-visiting-South-Korea-for-the-first-time
 a,b,c=quora_process(url)
