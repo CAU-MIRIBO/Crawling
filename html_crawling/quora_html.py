@@ -88,9 +88,9 @@ class Quora:
 # https://www.quora.com/What-did-you-experience-in-South-Korea-that-would-never-happen-in-Japan
 # https://www.quora.com/Is-Hades-the-best-game-of-2020
 
-# # 예시 실행 코드
-# url='https://moviesnmore.quora.com/What-will-be-the-best-movie-of-2021-4'
-# ques=Quora()
-# a,b,c,d=ques.quora_process(url)
+# 예시 실행 코드
+url='https://moviesnmore.quora.com/What-will-be-the-best-movie-of-2021-4'
+ques=Quora()
+a,b,c,d=ques.quora_process(url)
 
         
