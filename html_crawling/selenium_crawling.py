@@ -24,7 +24,9 @@ def request_with_selenium(Url):
     
     head_src=head.get_attribute('innerHTML')
     body_src=body.get_attribute('innerHTML')
+    
     # driver.close() --> driver 닫혀도 되나?
+    driver.close()
     return head_src, body_src
     
     # driver.implicitly_wait(time_to_wait=5)
