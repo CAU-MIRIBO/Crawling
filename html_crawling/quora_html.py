@@ -1,6 +1,16 @@
 from bs4 import BeautifulSoup
 from selenium_crawling import *
 
+# 코드 설명
+# selenium_crawling.py의 함수 (request_with_selenium) 사용하여 작동함.
+# 일단 지금은 selenium_crawling.py랑 같은 폴더 안에 넣고 쓰는게 편할듯
+# 클래스 Quora에서 quora_process 함수만 콜하면 작동 
+# input : url - 1개
+# output : quo_ques, quo_ques_cont, quo_answer_list, quo_full_answer - 현재는 4개 (나중에 웹페이지 상태 이런것도 추가될 듯)
+# quo_ques 는 질문 자체, quo_ques_content는 질문 내용인데 사실 질문 내용은 quora엔 없는듯 그래서 그냥 항상 0임
+# quo_answer_list는 답변 내용을 문단화 한것
+# quo_full_answer는 답변 내용 전체가 한 스트링으로 다 들어있는 변수, quo_answer_list에서 나눈 문단이 겁나 짧을 때도 있어서 걍 합친 버전도 리턴하도록 함
+
 # quora needs selenium
 class Quora:
     def __init__(self):
