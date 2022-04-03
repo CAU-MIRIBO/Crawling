@@ -19,12 +19,15 @@ def request_with_selenium(Url):
     print(driver.current_url)
     
     # 페이지 내에서 값 읽어오기
+    head=driver.find_element_by_tag_name('head')
     body=driver.find_element_by_tag_name('body')
-    body_text=body.text
-    # print(body_text)
     
-    # driver.close()
-    return body, driver
+    head_src=head.get_attribute('innerHTML')
+    body_src=body.get_attribute('innerHTML')
+    
+    # driver.close() --> driver 닫혀도 되나?
+    driver.close()
+    return head_src, body_src
     
     # driver.implicitly_wait(time_to_wait=5)
         
