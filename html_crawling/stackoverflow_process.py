@@ -1,5 +1,4 @@
 from html_crawling import stackoverflow_html
-from bs4 import BeautifulSoup as bs
 import re
 
 url='https://stackoverflow.com/questions/2612548/extracting-an-attribute-value-with-beautifulsoup'
@@ -60,5 +59,7 @@ class stackOverFlow_process:
         self.processed_head=self.ques_head.get_text()
         self.processed_content=self.extract_tag(str(self.ques_content))
         self.processed_answer=self.extract_tag(str(self.answer))
+
+        return self.processed_head,self.processed_content,self.processed_answer
 
 
