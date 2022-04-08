@@ -55,6 +55,9 @@ class Default:
         image=article.top_image
         print(content)
         
+        if self.check_content(content):
+            print('do some other operation maybe with selenium')
+        
         a_title=article.title
         a_content_paragraph=self.refine_content(content)
         a_content=content
@@ -80,20 +83,19 @@ class Default:
         
         return f_paragraph
     
+    def check_content(self, string):
+        if 'Something went wrong. Wait a moment and try again.' in string:
+            return True
+        elif not string:
+            return True
+        else:
+            return False
+        
     def print_each_para(self, list):
         for i in list:
             print(i)
             print('\n')
         print('==========================================')
-
-    def article_nlp(self, art):
-        art.nlp()
-        print()
-    
-    def get_contents(self, soup):
-        body=soup.body
-        contents_text=body.text
-        print(contents_text)
         
     def header_process(self, soup):
         # g_title=g_head.find(attrs={'property':'og:title'})
@@ -115,7 +117,7 @@ class Default:
 
 
 
-url='https://www.hani.co.kr/arti/culture/culture_general/1023318.html'
+url='https://www.ajunews.com/view/20211215155407703'
 # 'https://www.quora.com/How-is-the-culture-of-Jeju-Island-different-from-the-rest-of-South-Korea'
 # 'https://www.hani.co.kr/arti/culture/culture_general/1023318.html'
 # 'https://www.ajunews.com/view/20211215155407703'
