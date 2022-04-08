@@ -13,7 +13,7 @@ from newspaper import Article
 
 class Default:
 
-    def crawling_article(self, soup):
+    def crawl_article_lastchance(self, soup):
         
         # selenium으로 크롤링
         head, body=request_with_selenium(url)
@@ -30,7 +30,6 @@ class Default:
         else:
             contents=''
             print('no contents')
-            self.get_contents(soup)
         
         # print(article.text)
         # article.nlp()
