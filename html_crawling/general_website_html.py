@@ -1,4 +1,4 @@
-from subprocess import list2cmdline
+from xml.dom.minidom import Document
 from bs4 import BeautifulSoup
 from selenium_crawling import *
 from newspaper import Article
@@ -13,34 +13,18 @@ from newspaper import Article
 
 class Default:
 
-    def crawl_article_lastchance(self, soup):
+    def crawl_article_lastchance(self, url):
         
         # selenium으로 크롤링
         head, body=request_with_selenium(url)
         
-        # nltk.download()
-        article=Article(url)
-        article.download()
-
-        # print(article.html)
-        article.parse()
-        title=article.title
-        if article.text:
-            contents=article.text
-        else:
-            contents=''
-            print('no contents')
+        l_title=0
+        l_contents=0
         
-        # print(article.text)
-        # article.nlp()
-        if article.keywords:
-            a_keywords=article.keywords
-            
-        if article.summary:
-            a_summary=article.summary
-            
+        document_cleaner=DocumentCleaner(self.config)
+        nd_body=document_cleaner.clean(body)
         
-        return title, contents
+        return l_title, l_contents
     
     def crawl_article_newspaper_mod(self, url):
         
@@ -122,7 +106,8 @@ url='https://www.ajunews.com/view/20211215155407703'
 # 'https://www.ajunews.com/view/20211215155407703'
 
 arti=Default()
-a, b, c=arti.crawl_article_newspaper_mod(url)
+tt, ti=arti.crawl_article_lastchance(url)
+# a, b, c=arti.crawl_article_newspaper_mod(url)
 # arti.crawling_article(url)
 # title, contents=request_through_url(url)
 # print_test_result(title,contents)
