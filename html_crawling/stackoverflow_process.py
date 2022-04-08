@@ -1,5 +1,7 @@
 from html_crawling import stackoverflow_html
 import re
+import torch
+from transformers import PreTrainedTokenizerFast, BartForConditionalGeneration
 
 url='https://stackoverflow.com/questions/2612548/extracting-an-attribute-value-with-beautifulsoup'
 #ques_head, ques_content, answer=stackoverflow_html.request_through_url(url)
@@ -19,6 +21,11 @@ class stackOverFlow_process:
     def __init__(self, url):
         self.url=url
         self.ques_head, self.ques_content, self.answer = stackoverflow_html.request_through_url(url)
+        self.processed_head = self.ques_head.get_text()
+        self.processed_content = self.extract_tag(str(self.ques_content))
+        self.processed_answer = self.extract_tag(str(self.answer))
+        self.tokenizer = PreTrainedTokenizerFast.from_pretrained('digit82/kobart-summarization')
+        self.model = BartForConditionalGeneration.from_pretrained('digit82/kobart-summarization')
 
     def extract_tag(self,html):
         html1=str(html)
@@ -44,22 +51,18 @@ class stackOverFlow_process:
             if(i[0]==""):
                 #print("\n<code>")
                 ret[-1][1]=re.sub('<.+?>', '', i[1], 0, re.I|re.S)
-                ret[-1][0]='code'
+                ret[-1][0]='1'
                 #print(ret[-1][1])
             else:
                 #print("\n<paragraph>")
                 ret[-1][1]=i[0]
-                ret[-1][0]='paragraph'
+                ret[-1][0]='0'
                 #print(ret[-1][1])
 
-        print(type(ret[0]))
         return ret
 
-    def get_info(self):
-        self.processed_head=self.ques_head.get_text()
-        self.processed_content=self.extract_tag(str(self.ques_content))
-        self.processed_answer=self.extract_tag(str(self.answer))
-
+    def get_all(self):
         return self.processed_head,self.processed_content,self.processed_answer
+
 
 
