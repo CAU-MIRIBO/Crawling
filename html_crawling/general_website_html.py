@@ -21,9 +21,6 @@ class Default:
         l_title=0
         l_contents=0
         
-        document_cleaner=DocumentCleaner(self.config)
-        nd_body=document_cleaner.clean(body)
-        
         return l_title, l_contents
     
     def crawl_article_newspaper_mod(self, url):
