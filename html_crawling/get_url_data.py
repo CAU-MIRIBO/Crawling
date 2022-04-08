@@ -22,8 +22,11 @@ class get_url_data:
 
         return self.all_head,self.all_content,self.all_answer #[[0,"paragraph"],[1,"code"]]
 
-
+    def run_summarization(self):
+        if "stackoverflow.com/questions" in self.url:
+            return self.sp.get_summarization()
 
 
 x=get_url_data("https://stackoverflow.com/questions/2612548/extracting-an-attribute-value-with-beautifulsoup")
 print(x.option(4))
+print(x.option(2))

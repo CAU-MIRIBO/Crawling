@@ -3,6 +3,7 @@ import re
 import torch
 from transformers import PreTrainedTokenizerFast, BartForConditionalGeneration
 
+
 url='https://stackoverflow.com/questions/2612548/extracting-an-attribute-value-with-beautifulsoup'
 #ques_head, ques_content, answer=stackoverflow_html.request_through_url(url)
 
@@ -51,12 +52,12 @@ class stackOverFlow_process:
             if(i[0]==""):
                 #print("\n<code>")
                 ret[-1][1]=re.sub('<.+?>', '', i[1], 0, re.I|re.S)
-                ret[-1][0]='1'
+                ret[-1][0]=1
                 #print(ret[-1][1])
             else:
                 #print("\n<paragraph>")
                 ret[-1][1]=i[0]
-                ret[-1][0]='0'
+                ret[-1][0]=0
                 #print(ret[-1][1])
 
         return ret
@@ -64,5 +65,24 @@ class stackOverFlow_process:
     def get_all(self):
         return self.processed_head,self.processed_content,self.processed_answer
 
+    def get_summarization(self):
+        str = ""
+        str += self.processed_head + "."
+
+        for i in self.processed_content:
+            if i[0]==0:
+                str+=i[1]+'.'
+        for i in self.processed_answer:
+            if i[0] == 0:
+                str += i[1]+'.'
+
+        return self.summarization_KoBART(str)
 
 
+    def summarization_KoBART(self,text):
+
+        #print(text)
+        raw_input_ids = self.tokenizer.encode(text)
+        input_ids = [self.tokenizer.bos_token_id] + raw_input_ids + [self.tokenizer.eos_token_id]
+        summary_ids = self.model.generate(torch.tensor([input_ids]), num_beams=4, max_length=512, eos_token_id=1)
+        return self.tokenizer.decode(summary_ids.squeeze().tolist(), skip_special_tokens=True)
