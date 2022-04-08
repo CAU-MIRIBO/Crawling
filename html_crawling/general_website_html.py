@@ -16,8 +16,14 @@ class Default:
     def crawl_article_lastchance(self, url):
         
         # selenium으로 크롤링
-        head, body=request_with_selenium(url)
+        head, body, driver=request_with_selenium_raw(url)
+        # body_soup=BeautifulSoup(body, 'html.parser')
+
+        content_part=body.find_element_by_class_name('article_con')
+        content=content_part.text
+        print(content)
         
+        driver.close()
         l_title=0
         l_contents=0
         
@@ -48,6 +54,7 @@ class Default:
         # summary=article.summary
         return a_title, a_content_paragraph, a_content
         
+    
     def refine_content(self, string):
         # 문단화
         paragraph=string.split('\n\n')
