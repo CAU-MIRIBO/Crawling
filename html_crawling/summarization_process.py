@@ -3,10 +3,16 @@ from transformers import PreTrainedTokenizerFast, BartForConditionalGeneration
 from gensim.summarization.summarizer import summarize
 
 
-class get_summarization:
+class summarization:
     def __init__(self):
         self.tokenizer = PreTrainedTokenizerFast.from_pretrained('digit82/kobart-summarization')
         self.model = BartForConditionalGeneration.from_pretrained('digit82/kobart-summarization')
+
+    def get_summarization(self,text):
+        if len(text)>4000:
+            return self.summarization_newspaper(text)
+        else:
+            return self.summarization_KoBART(text)
 
     def summarization_KoBART(self, text):
         # print(text)
