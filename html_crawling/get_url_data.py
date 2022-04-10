@@ -1,7 +1,5 @@
 from stackoverflow_process import *
-import torch
-from transformers import PreTrainedTokenizerFast, BartForConditionalGeneration
-from gensim.summarization.summarizer import summarize
+from quora_process import *
 
 
 class get_url_data:
@@ -9,7 +7,9 @@ class get_url_data:
         self.url=url  #url link
 
         if "stackoverflow.com/questions" in self.url:
-            self.sp=stackOverFlow_process(self.url)
+            self.sp=stackOverFlow_process(self.url) #already pro
+        elif "quora.com" in self.url:
+            self.qp=quora_process(self.url)
 
     def option(self,num):
         if num==1:
@@ -21,15 +21,19 @@ class get_url_data:
         elif num==4:
             return self.run_all()
 
+    #all text to show user
     def run_all(self):
         if "stackoverflow.com/questions" in self.url:
             self.all_head,self.all_content,self.all_answer=self.sp.get_all()
 
         return self.all_head,self.all_content,self.all_answer #[[0,"paragraph"],[1,"code"]]
 
+
     def run_summarization(self):
         if "stackoverflow.com/questions" in self.url:
             return self.sp.get_summarization()
+
+
 
 
 

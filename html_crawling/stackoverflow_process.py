@@ -59,9 +59,11 @@ class stackOverFlow_process:
 
         return ret
 
+    # return splited text : head/content(list)/answer(list)
     def get_all(self):
         return self.processed_head,self.processed_content,self.processed_answer
 
+    # return
     def get_total_text(self):
         str = ""
         str += self.processed_head + "."
