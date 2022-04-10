@@ -1,19 +1,7 @@
-from urllib import request
-import requests
+from xml.dom.minidom import Document
 from bs4 import BeautifulSoup
+from selenium_crawling import *
 from newspaper import Article
-#import nltk
-
-import selenium
-from selenium import webdriver
-from selenium.webdriver import ActionChains
-
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.by import By
-
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import Select
-from selenium.webdriver.support.ui import WebDriverWait
 
 # # 처음 시작할때 Webdriver 관련 오류 해결방법
 # from webdriver_manager.chrome import ChromeDriverManager
@@ -23,106 +11,112 @@ from selenium.webdriver.support.ui import WebDriverWait
 # from gensim.summarization.summarizer import summarize
 # from newspaper import Article
 
-def crawling_article(soup):
-    
-    # nltk.download()
-    article=Article(url)
-    article.download()
+class Default:
 
-    # print(article.html)
-    article.parse()
-    title=article.title
-    if article.text:
-        contents=article.text
-    else:
-        contents=''
-        print('no contents')
-        get_contents(soup)
-    
-    # print(article.text)
-    # article.nlp()
-    if article.keywords:
-        a_keywords=article.keywords
+    def crawl_article_lastchance(self, url):
         
-    if article.summary:
-        a_summary=article.summary
+        # selenium으로 크롤링
+        head, body, driver=request_with_selenium_raw(url)
+        # body_soup=BeautifulSoup(body, 'html.parser')
         
-    
-    return title, contents
+        title=driver.title
 
-def article_nlp(art):
-    art.nlp()
-    print()
+        # content_part=body.find_element_by_class_name('article_con')
+        content_part=body
+        content=content_part.text
     
-def get_contents(soup):
-    body=soup.body
-    contents_text=body.text
-    print(contents_text)
-    
-def header_process(soup):
-    # g_title=g_head.find(attrs={'property':'og:title'})
-    # g_container=soup.body
-    # g_content=g_container #.find(attrs={'class':'e-content post-content'})
-    # contents=g_content.text
-    
-    print('not completed')
-
-def request_through_url(url):
-    response=requests.get(url)
-    if response.status_code==200:
-        html=response.text
-        soup=BeautifulSoup(html, 'html.parser')
-        title, contents=crawling_article(soup)
-        # print_test_result(title,contents)
-        return title, contents
         
-    else:
-        print(response.status_code)
+        driver.close()
+        l_title=title
+        l_contents=content
+        l_paragraph=0
         
+        self.print_test_result(l_title, l_contents)
         
-def request_with_selenium(Url):
+        return l_title, l_paragraph, l_contents
     
-    options = webdriver.ChromeOptions()
-    
-    # # 창 사이즈
-    # options.add_argument('window-size=1920,1080')  
-    
-    # 창 띄우지 않기
-    options.add_argument('headless')
-     
-    # Apply options
-    driver = webdriver.Chrome(executable_path='C:\\Users\\hjson\\Downloads\\chromedriver.exe')
-    # driver.implicitly_wait(3)
-    
-    driver.get(Url)
-    print(driver.current_url)
-    
-    # 페이지 내에서 값 읽어오기
-    body=driver.find_element_by_tag_name('body')
-    body_text=body.text
-    print(body_text)
-    
-    driver.close()
-    
-    # driver.implicitly_wait(time_to_wait=5)
+    def crawl_article_newspaper_mod(self, url):
         
-def print_test_result(title, contents):
+        article=Article(url)
+        article.download()
+        
+        html=article.html
+        article.parse()
+        
+        content=article.text
+        image=article.top_image
+        
+        if self.check_content(content):
+            print('do some other operation maybe with selenium')
+        
+        a_title=article.title
+        a_content_paragraph=self.refine_content(content)
+        a_content=content
+        
+        # nlp 작동 벗 쓰레기
+        # article.nlp()
+        # keywords=article.keywords
+        # summary=article.summary
+        return a_title, a_content_paragraph, a_content
+        
     
-    print('================process done========================')
-    print('\n----------Title-----------\n')
-    print(title)
-    print('\n-------------Content---------------\n')
-    print(contents)
-    print('\n')
+    def refine_content(self, string):
+        # 문단화
+        paragraph=string.split('\n\n')
+        # self.print_each_para(paragraph)
+        
+        # 빈 문단 제거
+        paragraph=[(p) for p in paragraph if not p.isspace()]
+        # self.print_each_para(paragraph)
+        
+        # 중복되는 문단 제거 // 사진 참조 같은 경우 중복되는 경우 다수
+        f_paragraph=list(dict.fromkeys(paragraph))
+        self.print_each_para(f_paragraph)
+        
+        return f_paragraph
+    
+    def check_content(self, string):
+        if 'Something went wrong. Wait a moment and try again.' in string:
+            return True
+        elif not string:
+            return True
+        else:
+            return False
+        
+    def print_each_para(self, list):
+        for i in list:
+            print(i)
+            print('\n')
+        print('==========================================')
+        
+    def header_process(self, soup):
+        # g_title=g_head.find(attrs={'property':'og:title'})
+        # g_container=soup.body
+        # g_content=g_container #.find(attrs={'class':'e-content post-content'})
+        # contents=g_content.text
+        
+        print('not completed')
+    
+            
+    def print_test_result(self, title, contents):
+        
+        print('================process done========================')
+        print('\n----------Title-----------\n')
+        print(title)
+        print('\n-------------Content---------------\n')
+        print(contents)
+        print('\n')
 
 
 
-url='https://www.quora.com/How-is-the-culture-of-Jeju-Island-different-from-the-rest-of-South-Korea'
+url='https://www.ajunews.com/view/20211215155407703'
+# 'https://www.quora.com/How-is-the-culture-of-Jeju-Island-different-from-the-rest-of-South-Korea'
 # 'https://www.hani.co.kr/arti/culture/culture_general/1023318.html'
 # 'https://www.ajunews.com/view/20211215155407703'
 
-
+arti=Default()
+tt, ti, hapy=arti.crawl_article_lastchance(url)
+# a, b, c=arti.crawl_article_newspaper_mod(url)
+# arti.crawling_article(url)
 # title, contents=request_through_url(url)
 # print_test_result(title,contents)
-
-request_with_selenium(url)

@@ -1,0 +1,385 @@
+[33mcommit 0fa4af4cadc645d46e1c0075cdbf2108b0c9c6ca[m[33m ([m[1;36mHEAD -> [m[1;32mgeneral_test[m[33m)[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Fri Apr 8 22:44:51 2022 +0900
+
+    seperate folder for convenience
+
+[33mcommit 175c37e0f7d29ac54777fb09798cf4c3eb19661f[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Fri Apr 8 22:43:55 2022 +0900
+
+    change in lastchance
+
+[33mcommit 76381785b9629f512046ffd44ba95b89db6e2932[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Fri Apr 8 21:58:16 2022 +0900
+
+    pretest with crawling1.py
+
+[33mcommit 7717417d55357669912339da9e3d4e6e6d19d187[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Fri Apr 8 21:35:06 2022 +0900
+
+    case of empty contents
+
+[33mcommit f3f448f29a7456b05bddf977e921e48d48e6e44e[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Fri Apr 8 21:19:43 2022 +0900
+
+    crawl with newpaper mod + refine contents
+
+[33mcommit 448ac9b6369c2651a337b106c3452bc19cae3a80[m[33m ([m[1;31morigin/quora_test[m[33m, [m[1;31morigin/general_test[m[33m, [m[1;32mquora_test[m[33m)[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Sun Apr 3 22:50:53 2022 +0900
+
+    Add Comments
+
+[33mcommit e95ef2d9144d8ccafcc1af342ec2c03d014b7e30[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Sun Apr 3 22:42:51 2022 +0900
+
+    mid-version of quora without exception
+
+[33mcommit 4fb2957ea09e45932bfa648bfa07f0e5df2bf786[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Sun Apr 3 22:31:35 2022 +0900
+
+    change quora process to Class quora
+
+[33mcommit df5f2ff10aa35cbe49d35b3979263b1a7c7ccd8b[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Sun Apr 3 22:07:36 2022 +0900
+
+    modify quora to get title
+
+[33mcommit c1fd08678527b8a2dd0379c91b87463b395c040b[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Sun Apr 3 21:09:03 2022 +0900
+
+    modify request_with_selenium outputs to html src
+
+[33mcommit fbbf97b0eb621031fae4e14f3a37284591bcbed8[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Sun Apr 3 21:00:17 2022 +0900
+
+    get quora answer list
+
+[33mcommit 4ad5aefc86ba08720ebedb36bcd87e0a6702a82c[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m
+Merge: 7611a71 8a640f0
+Author: wonawonana <56299516+wonawonana@users.noreply.github.com>
+Date:   Thu Mar 31 21:00:00 2022 +0900
+
+    Merge pull request #2 from CAU-MIRIBO/test2
+    
+    Test2
+
+[33mcommit 8a640f0630df55a60cc00654c877478c80e6f6ca[m
+Merge: 1b9d427 7611a71
+Author: wonawonana <56299516+wonawonana@users.noreply.github.com>
+Date:   Thu Mar 31 20:58:05 2022 +0900
+
+    Merge branch 'main' into test2
+
+[33mcommit 1b9d427e9c478b65931e72b44aac20c059ae35a1[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Thu Mar 31 20:53:24 2022 +0900
+
+    commit test2 again
+
+[33mcommit fdcf47044fdfd56ac31707308d5bdeeb955b32ed[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Thu Mar 31 20:51:22 2022 +0900
+
+    commit test2 branch 2nd
+
+[33mcommit 7611a71848db0a873a17a05df1dbef1fd8526946[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Thu Mar 31 20:48:54 2022 +0900
+
+    commit branch test2
+
+[33mcommit 8a00d4f8d3c102a6556d65a31664811fbdb48a01[m
+Merge: 6b0717a 5f2a1dc
+Author: hjso <66001867+hjso@users.noreply.github.com>
+Date:   Thu Mar 31 20:43:02 2022 +0900
+
+    Merge pull request #1 from CAU-MIRIBO/test1
+    
+    branch test1 commit
+
+[33mcommit 5f2a1dc713cbeb90c3f3ed411ce8f8a1f2650bff[m[33m ([m[1;31morigin/test1[m[33m)[m
+Author: wonawonana <56299516+wonawonana@users.noreply.github.com>
+Date:   Thu Mar 31 20:30:41 2022 +0900
+
+    branch test1 commit
+
+[33mcommit 6b0717a0b2c11af3cfb229096c9e23570d97c0ab[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Wed Mar 30 23:57:31 2022 +0900
+
+    test cooperation3
+
+[33mcommit d2acb70bad6bc49a6f553297a5d3e4b59a148606[m
+Author: wonawonana <56299516+wonawonana@users.noreply.github.com>
+Date:   Wed Mar 30 23:51:27 2022 +0900
+
+    test Cooperation2
+
+[33mcommit 7d51926eaea50a19ad9a4e711297ac47d98e5a9a[m
+Author: wonawonana <56299516+wonawonana@users.noreply.github.com>
+Date:   Wed Mar 30 23:50:32 2022 +0900
+
+    test Cooperation1
+
+[33mcommit c976ff195cb4d75dd7d46841659a092d03788137[m
+Merge: 601118e a95ef7c
+Author: hjso <hjsong9th@gmail.com>
+Date:   Wed Mar 30 23:44:32 2022 +0900
+
+    Merge branch 'main' of https://github.com/CAU-MIRIBO/Crawling
+
+[33mcommit 601118e4fe3e32aeca2f8a362c28cfb1b16f4ad7[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Wed Mar 30 23:24:08 2022 +0900
+
+    recent commit
+
+[33mcommit a95ef7c470cbc6ef0a9f9897e5d76c3b354dfece[m
+Author: wonawonana <56299516+wonawonana@users.noreply.github.com>
+Date:   Wed Mar 30 23:20:15 2022 +0900
+
+    stackoverflow tag extract
+
+[33mcommit 9cdaa66d240d836181d413bbff5b00b5b7caee05[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Wed Mar 30 23:07:37 2022 +0900
+
+    paragraphing success, cannot extract text
+
+[33mcommit 5f33d1159b0cc0c010153f24b9a674374d42b267[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Wed Mar 30 22:54:46 2022 +0900
+
+    error modified
+
+[33mcommit ed9c9d4832bcb35361f5ac78d6208f1ffbf5ab23[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Wed Mar 30 22:52:28 2022 +0900
+
+    get text by paragraph but not entirely
+
+[33mcommit f7656c246d79651b45140b88e005e186f0535480[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Wed Mar 30 22:51:54 2022 +0900
+
+    log error modify
+
+[33mcommit 43323c66edd752dab7129f388cb04ea1c47b0118[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Wed Mar 30 22:48:27 2022 +0900
+
+    usb related error fix
+
+[33mcommit 1b818ad5121cb40ef6561a9b6009f611e7d09f3e[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Wed Mar 30 21:53:05 2022 +0900
+
+    synch with quora html.py
+
+[33mcommit da567c4d77296f37f03ebdc502240eb5d4ca33fb[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Wed Mar 30 21:52:40 2022 +0900
+
+    quora question title crawl
+
+[33mcommit 119ceeaf19f96e5184fb7a491af1e639f45f4f03[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Wed Mar 30 21:07:27 2022 +0900
+
+    add output value - driver
+
+[33mcommit 8fe0d529788a506310cfb97850708e20cdf096b1[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Wed Mar 30 20:21:45 2022 +0900
+
+    quora use selenium_crawling.py file function
+
+[33mcommit 281189353839e3ec66a63eca4747381ebbf5f5bb[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Wed Mar 30 20:17:31 2022 +0900
+
+    first commit selenium
+
+[33mcommit c061b152dc6ae587e62d4ca08267157b9c65219f[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Wed Mar 30 03:47:02 2022 +0900
+
+    check quora page
+
+[33mcommit 03b403b446493b29385dce8804f738901b4e5de4[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Wed Mar 30 03:39:01 2022 +0900
+
+    add selenium module
+
+[33mcommit d30c636d42384de4b9ec23e84a7b1df7fd82b969[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Sun Mar 27 23:19:50 2022 +0900
+
+    general crawling only beautifulsoup
+
+[33mcommit e338eb0971879ee65fa71bd37104b35c22290a17[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Sun Mar 27 23:17:44 2022 +0900
+
+    check html compositsion
+
+[33mcommit acc53f54548ee23e982ddb50c04067c36ccb88f4[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Sun Mar 27 23:14:53 2022 +0900
+
+    check javascript/css usage in html
+
+[33mcommit 162179d5c8b8fda1fc251e5ed784db499c167970[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Sun Mar 27 22:01:57 2022 +0900
+
+    only unrefined title, contents
+
+[33mcommit 020822272d28b60e07bd7ab6f2b84bd69cb77a17[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Sun Mar 27 21:10:40 2022 +0900
+
+    combine with crawling1.py
+
+[33mcommit 7dbdb7110945b1f9c3c683a51b9c259df9c41152[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Sun Mar 27 21:07:23 2022 +0900
+
+    general_case crawling with newspaper module
+
+[33mcommit 1836d046450653d189f8dbf8b567052e1827aa31[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Thu Mar 24 21:58:26 2022 +0900
+
+    practice -first commit
+
+[33mcommit b9b440765e74e66443c27f9aeee11302576f4b98[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Thu Mar 24 20:44:39 2022 +0900
+
+    delete article library
+
+[33mcommit 6c26bc99552142274b2f23480c4112066bd0326f[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Tue Mar 22 21:58:23 2022 +0900
+
+    Add gensim code
+
+[33mcommit d25452c4bbfc994a8d48470fe2bd6c998bec560c[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Sun Mar 20 22:57:03 2022 +0900
+
+    seperate head-body
+
+[33mcommit 578a4363f885ab5f0e8d1daf1590096903f030cb[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Sun Mar 20 22:44:51 2022 +0900
+
+    first commit
+
+[33mcommit d215848e2af52271bc117445aa67907f75873295[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Sun Mar 20 22:34:59 2022 +0900
+
+    find title
+
+[33mcommit 4c43d13eb34b05347fc907c41c02822f45c4805b[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Sun Mar 20 22:10:56 2022 +0900
+
+    quora first commit
+
+[33mcommit 6ce724d4ba4e66a6071b27926f37e3866cb9b617[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Sun Mar 20 21:49:49 2022 +0900
+
+    if case for no answer at all
+
+[33mcommit 36b68605f21f2810b353a87d1d71e15d3566b909[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Sun Mar 20 21:40:43 2022 +0900
+
+    modify to html contents crawler
+
+[33mcommit 32748266433e5aaf0d01b9eacf49f4cbc5cb48ff[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Thu Mar 17 23:11:46 2022 +0900
+
+    add no selected answer case
+
+[33mcommit b4efd41393dc644de5a44ec000ca1e11ade3a045[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Thu Mar 17 23:09:15 2022 +0900
+
+    add no selected answer case
+
+[33mcommit 1c2ddb1572beecad69905e364f6331c5555d5918[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Thu Mar 17 22:25:38 2022 +0900
+
+    make each process into function
+
+[33mcommit 01ee52f340fd82f38d2dd937ddc75d6f594e7600[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Thu Mar 17 22:19:44 2022 +0900
+
+    add answer part if statements
+
+[33mcommit 51d735eb48b7b76df46bc3235d464c3e2a8f717b[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Thu Mar 17 22:10:10 2022 +0900
+
+    modify Beautifulsoup find-function tag keyword
+
+[33mcommit 6ae3e51efe58479b2ccc24544056282310ed890c[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Tue Mar 15 23:40:42 2022 +0900
+
+    Seperate question and answer
+
+[33mcommit 308e2c910a6c7bb6df92ac677ad7e5ee5a000dfb[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Tue Mar 15 22:46:19 2022 +0900
+
+    get stackoverflow question
+
+[33mcommit 67a364ad66626f54d5dac450aae076d660e117e1[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Tue Mar 15 21:28:38 2022 +0900
+
+    first commit
+
+[33mcommit a358206cc82ac4381c592b74c8f6a361e5224159[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Tue Mar 15 21:16:47 2022 +0900
+
+    base_code
+
+[33mcommit 1ae3a3ef14fba338a957309859f49a27294769fe[m
+Author: hjso <hjsong9th@gmail.com>
+Date:   Tue Mar 15 21:04:17 2022 +0900
+
+    first commit
+
+[33mcommit 9d7e2ea78c53c508e3042ea354836399bc9966f1[m
+Author: hjso <66001867+hjso@users.noreply.github.com>
+Date:   Tue Mar 15 20:43:32 2022 +0900
+
+    Create article_crawling
+
+[33mcommit b3ed7475ffea2397189c783aa4ad28b84f4d12cb[m
+Author: hjso <66001867+hjso@users.noreply.github.com>
+Date:   Tue Mar 15 20:38:55 2022 +0900
+
+    Initial commit

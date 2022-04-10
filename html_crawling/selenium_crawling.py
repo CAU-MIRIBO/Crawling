@@ -30,6 +30,34 @@ def request_with_selenium(Url):
     return head_src, body_src
     
     # driver.implicitly_wait(time_to_wait=5)
+    
+def request_with_selenium_raw(Url):
+    
+    options = webdriver.ChromeOptions()
+    
+    # # 창 사이즈
+    # options.add_argument('window-size=1920,1080')  
+    
+    # 창 띄우지 않기
+    options.add_argument('headless')
+     
+    # Apply options
+    driver = webdriver.Chrome(executable_path='C:\\Users\\hjson\\Downloads\\chromedriver.exe')
+    # driver.implicitly_wait(3)
+    
+    driver.get(Url)
+    print(driver.current_url)
+    
+    # 페이지 내에서 값 읽어오기
+    head=driver.find_element_by_tag_name('head')
+    body=driver.find_element_by_tag_name('body')
+    
+    # head_src=head.get_attribute('innerHTML')
+    # body_src=body.get_attribute('innerHTML')
+    
+    # driver.close() --> driver 닫혀도 되나?
+    
+    return head, body, driver
         
 def print_test_result(title, contents):
     
