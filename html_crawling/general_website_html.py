@@ -18,16 +18,22 @@ class Default:
         # selenium으로 크롤링
         head, body, driver=request_with_selenium_raw(url)
         # body_soup=BeautifulSoup(body, 'html.parser')
+        
+        title=driver.title
 
-        content_part=body.find_element_by_class_name('article_con')
+        # content_part=body.find_element_by_class_name('article_con')
+        content_part=body
         content=content_part.text
-        print(content)
+    
         
         driver.close()
-        l_title=0
-        l_contents=0
+        l_title=title
+        l_contents=content
+        l_paragraph=0
         
-        return l_title, l_contents
+        self.print_test_result(l_title, l_contents)
+        
+        return l_title, l_paragraph, l_contents
     
     def crawl_article_newspaper_mod(self, url):
         
@@ -39,7 +45,6 @@ class Default:
         
         content=article.text
         image=article.top_image
-        print(content)
         
         if self.check_content(content):
             print('do some other operation maybe with selenium')
@@ -58,7 +63,7 @@ class Default:
     def refine_content(self, string):
         # 문단화
         paragraph=string.split('\n\n')
-        #self.print_each_para(paragraph)
+        # self.print_each_para(paragraph)
         
         # 빈 문단 제거
         paragraph=[(p) for p in paragraph if not p.isspace()]
@@ -110,7 +115,7 @@ url='https://www.ajunews.com/view/20211215155407703'
 # 'https://www.ajunews.com/view/20211215155407703'
 
 arti=Default()
-tt, ti=arti.crawl_article_lastchance(url)
+tt, ti, hapy=arti.crawl_article_lastchance(url)
 # a, b, c=arti.crawl_article_newspaper_mod(url)
 # arti.crawling_article(url)
 # title, contents=request_through_url(url)
