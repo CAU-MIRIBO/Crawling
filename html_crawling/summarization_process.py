@@ -8,8 +8,17 @@ class summarization:
         self.tokenizer = PreTrainedTokenizerFast.from_pretrained('digit82/kobart-summarization')
         self.model = BartForConditionalGeneration.from_pretrained('digit82/kobart-summarization')
 
-    def get_summarization(self,text):
-        if len(text)>4000:
+    def get_summarization(self,text,type=1):
+
+        # if type==2:
+        #     str = ""
+        #     for i in text:
+        #
+        #         str+=self.summarization_KoBART(i)
+        #     return str
+
+
+        if len(text)>3000:
             return self.summarization_newspaper(text)
         else:
             return self.summarization_KoBART(text)

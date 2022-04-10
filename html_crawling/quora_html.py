@@ -51,7 +51,7 @@ class Quora:
 
 
         # for debugging
-        self.print_test_result(q_title, quo_answer_list)
+        #self.print_test_result(q_title, quo_answer_list)
         
         quo_ques=q_title
         return quo_ques, quo_ques_cont, quo_answer_list, quo_full_answer
@@ -89,8 +89,8 @@ class Quora:
 # https://www.quora.com/Is-Hades-the-best-game-of-2020
 
 # 예시 실행 코드
-url='https://moviesnmore.quora.com/What-will-be-the-best-movie-of-2021-4'
-ques=Quora()
-a,b,c,d=ques.quora_process(url)
+# url='https://moviesnmore.quora.com/What-will-be-the-best-movie-of-2021-4'
+# ques=Quora()
+# a,b,c,d=ques.quora_process(url)
 
         

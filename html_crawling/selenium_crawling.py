@@ -12,7 +12,7 @@ def request_with_selenium(Url):
     options.add_argument('headless')
      
     # Apply options
-    driver = webdriver.Chrome(executable_path='C:\\Users\\NaEunWoo\\Desktop\\chromedriver.exe')
+    driver = webdriver.Chrome(executable_path='C:\\Users\\hjson\\Downloads\\chromedriver.exe')
     # driver.implicitly_wait(3)
     
     driver.get(Url)
