@@ -13,7 +13,7 @@ def crawling_article(soup):
     title=article.title
     contents=article.text
     
-    # print(article.text)
+    print(article.text)
     if article.keywords:
         a_keywords=article.keywords
         
@@ -47,8 +47,9 @@ def print_test_result(title, contents):
 
 
 
-url='https://www.hani.co.kr/arti/society/health/1036414.html?_fr=mt1'
+url='https://www.ajunews.com/view/20211215155407703'
 # 'https://www.ajunews.com/view/20211215155407703'
+# 'https://www.hani.co.kr/arti/society/health/1036414.html?_fr=mt1'
     
 request_through_url(url)
 print('process done')
