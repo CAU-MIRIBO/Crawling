@@ -25,6 +25,7 @@ class Quora:
         quo_full_answer=0
         page_state=0
 
+        
         # selenium으로 html소스 가져오기 [head, body]
         head, body=request_with_selenium(url)
 
@@ -89,8 +90,8 @@ class Quora:
 # https://www.quora.com/Is-Hades-the-best-game-of-2020
 
 # 예시 실행 코드
-url='https://moviesnmore.quora.com/What-will-be-the-best-movie-of-2021-4'
-ques=Quora()
-a,b,c,d=ques.quora_process(url)
+# url='https://moviesnmore.quora.com/What-will-be-the-best-movie-of-2021-4'
+# ques=Quora()
+# a,b,c,d=ques.quora_process(url)
 
         
