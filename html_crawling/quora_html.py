@@ -25,6 +25,7 @@ class Quora:
         quo_full_answer=0
         page_state=0
 
+        
         # selenium으로 html소스 가져오기 [head, body]
         head, body=request_with_selenium(url)
 
