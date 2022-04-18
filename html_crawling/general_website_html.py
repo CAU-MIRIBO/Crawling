@@ -24,9 +24,10 @@ class Default:
         # content_part=body.find_element_by_class_name('article_con')
         content_part=body
         content=content_part.text
-    
+                
         
         driver.close()
+        
         l_title=title
         l_contents=content
         l_paragraph=0
@@ -34,6 +35,15 @@ class Default:
         self.print_test_result(l_title, l_contents)
         
         return l_title, l_paragraph, l_contents
+    
+    # newspaper 모듈 사용할 수 있을까봐 임시로 만들어놓은 함수
+    def check_article(self, l_head):
+        g_type=l_head.find('meta', {'property' :'og:type'}).attrs['content']
+        
+        if g_type is 'Article':
+            return True
+        else:
+            return False
     
     def crawl_article_newspaper_mod(self, url):
         
