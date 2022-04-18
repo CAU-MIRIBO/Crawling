@@ -6,11 +6,13 @@ from selenium_crawling import *
 # 일단 지금은 selenium_crawling.py랑 같은 폴더 안에 넣고 쓰는게 편할듯
 # 클래스 Quora에서 quora_process 함수만 콜하면 작동 
 # input : url - 1개
-# output : quo_ques, quo_ques_cont, quo_answer_list, quo_full_answer - 현재는 4개 (나중에 웹페이지 상태 이런것도 추가될 듯)
+# output : quo_ques, quo_ques_cont, quo_answer_list, quo_full_answer, status 
 # quo_ques 는 질문 자체, quo_ques_content는 질문 내용인데 사실 질문 내용은 quora엔 없는듯 그래서 그냥 항상 0임
 # quo_answer_list는 답변 내용을 문단화 한것
 # quo_full_answer는 답변 내용 전체가 한 스트링으로 다 들어있는 변수, quo_answer_list에서 나눈 문단이 겁나 짧을 때도 있어서 걍 합친 버전도 리턴하도록 함
+# status : selenium에서 오류나면 output 0으로
 
+# 여튼 오류나면 0, 0, [0], 0, 0 으로 아웃풋
 # quora needs selenium
 class Quora:
     def __init__(self):
@@ -21,41 +23,56 @@ class Quora:
         # outputs 아마 5개가 될 예정
         quo_ques=0
         quo_ques_cont=0
-        quo_answer_list=[]
+        quo_answer_list=[0]
         quo_full_answer=0
-        page_state=0
+        status=0
 
-        
-        # selenium으로 html소스 가져오기 [head, body]
-        head, body=request_with_selenium(url)
+        # Selenium part
+        try:
+            # selenium으로 html소스 가져오기 [head, body]
+            head, body=request_with_selenium(url)
+        except Exception as eq:
+            print(eq)
+            return quo_ques, quo_ques_cont, quo_answer_list, quo_full_answer, status
 
         # body part
-        body_soup=BeautifulSoup(body, 'html.parser')
+        try:
+            body_soup=BeautifulSoup(body, 'html.parser')
+        except Exception as eq:
+            print(eq)
 
         # get meta propterty
-        q_title, q_type, q_image, q_description=self.get_meta_property(head)
-
+        try:
+            q_title, q_type, q_image, q_description=self.get_meta_property(head)
+        except Exception as eq:
+            print(eq)
+        
         # q_title // q_answer
-        q_title=body_soup.find(attrs={'class':'q-text puppeteer_test_question_title'}).text
-        q_answer_box=body_soup.find(attrs={'class':'q-box spacing_log_answer_content puppeteer_test_answer_content'})
-
+        try: 
+            q_title=body_soup.find(attrs={'class':'q-text puppeteer_test_question_title'}).text
+            q_answer_box=body_soup.find(attrs={'class':'q-box spacing_log_answer_content puppeteer_test_answer_content'})
+        except Exception as eq:
+            print(eq)
 
         # answer paragraph 별로 리스트에 저장
-        q_answer_list=q_answer_box.find_all('p')
-        
-        for answ in q_answer_list:
-            quo_answer_list.append(answ.text)        
-            print(answ.text)
+        try:
+            q_answer_list=q_answer_box.find_all('p')
+            
+            for answ in q_answer_list:
+                quo_answer_list.append(answ.text)        
+                print(answ.text)
 
-        # get whole answer in 1 variable
-        quo_full_answer=q_answer_box.text    
+            # get whole answer in 1 variable
+            quo_full_answer=q_answer_box.text
+        except Exception as eq:
+            print(eq) 
 
 
-        # for debugging
-        self.print_test_result(q_title, quo_answer_list)
+        ## for debugging
+        # self.print_test_result(q_title, quo_answer_list)
         
         quo_ques=q_title
-        return quo_ques, quo_ques_cont, quo_answer_list, quo_full_answer
+        return quo_ques, quo_ques_cont, quo_answer_list, quo_full_answer, status
 
     # meta data 보조 정보로 크롤    
     def get_meta_property(self, head):
@@ -89,9 +106,9 @@ class Quora:
 # https://www.quora.com/What-did-you-experience-in-South-Korea-that-would-never-happen-in-Japan
 # https://www.quora.com/Is-Hades-the-best-game-of-2020
 
-# 예시 실행 코드
+# # 예시 실행 코드
 # url='https://moviesnmore.quora.com/What-will-be-the-best-movie-of-2021-4'
 # ques=Quora()
-# a,b,c,d=ques.quora_process(url)
+# a,b,c,d,e=ques.quora_process(url)
 
         
