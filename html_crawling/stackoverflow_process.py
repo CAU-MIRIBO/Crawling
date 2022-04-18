@@ -1,8 +1,6 @@
 from html_crawling import stackoverflow_html
 import re
 from newspaper import Article
-
-
 url='https://stackoverflow.com/questions/2612548/extracting-an-attribute-value-with-beautifulsoup'
 #ques_head, ques_content, answer=stackoverflow_html.request_through_url(url)
 
