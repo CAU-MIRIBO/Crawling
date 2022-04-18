@@ -1,8 +1,5 @@
 from html_crawling import stackoverflow_html
 import re
-import torch
-from transformers import PreTrainedTokenizerFast, BartForConditionalGeneration
-from gensim.summarization.summarizer import summarize
 from newspaper import Article
 
 
@@ -62,10 +59,12 @@ class stackOverFlow_process:
 
         return ret
 
+    # return splited text : head/content(list)/answer(list)
     def get_all(self):
         return self.processed_head,self.processed_content,self.processed_answer
 
-    def get_summarization(self):
+    # return
+    def get_total_text(self):
         str = ""
         str += self.processed_head + "."
 
@@ -77,16 +76,5 @@ class stackOverFlow_process:
                 str += i[1]+'.'
 
         #return self.summarization_KoBART(str)
-        return self.summarization_newspaper(str)
+        return str
 
-    def summarization_KoBART(self,text):
-        self.tokenizer = PreTrainedTokenizerFast.from_pretrained('digit82/kobart-summarization')
-        self.model = BartForConditionalGeneration.from_pretrained('digit82/kobart-summarization')
-        #print(text)
-        raw_input_ids = self.tokenizer.encode(text)
-        input_ids = [self.tokenizer.bos_token_id] + raw_input_ids + [self.tokenizer.eos_token_id]
-        summary_ids = self.model.generate(torch.tensor([input_ids]), num_beams=4, max_length=512, eos_token_id=1)
-        return self.tokenizer.decode(summary_ids.squeeze().tolist(), skip_special_tokens=True)
-
-    def summarization_newspaper(self,text):
-        return summarize(text)

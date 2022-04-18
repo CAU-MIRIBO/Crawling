@@ -67,7 +67,6 @@ class Quora:
         except Exception as eq:
             print(eq) 
 
-
         ## for debugging
         # self.print_test_result(q_title, quo_answer_list)
         
