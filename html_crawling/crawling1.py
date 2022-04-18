@@ -8,12 +8,9 @@ def crawling_article(soup):
     article=Article(url)
     article.download()
 
-    print(article.html)
     article.parse()
     title=article.title
     contents=article.text
-    
-    print(article.text)
     if article.keywords:
         a_keywords=article.keywords
         
@@ -45,11 +42,15 @@ def print_test_result(title, contents):
     print(contents)
     print('\n')
 
-
-
-url='https://www.ajunews.com/view/20211215155407703'
-# 'https://www.ajunews.com/view/20211215155407703'
+# 'http://m.cine21.com/news/view/?mag_id=99342'
 # 'https://www.hani.co.kr/arti/society/health/1036414.html?_fr=mt1'
+#  'https://www.nongmin.com/opinion/OPP/SWE/CW/349014/view?site_preference=normal'
+
+
+url='https://www.nongmin.com/opinion/OPP/SWE/CW/349014/view?site_preference=normal'
+
+
     
-request_through_url(url)
+title, content =request_through_url(url)
+print_test_result(title, content)
 print('process done')
