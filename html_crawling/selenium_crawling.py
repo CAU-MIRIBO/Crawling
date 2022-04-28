@@ -1,5 +1,6 @@
 import selenium
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 
 def request_with_selenium(Url):
     
@@ -9,7 +10,7 @@ def request_with_selenium(Url):
     # options.add_argument('window-size=1920,1080')  
     
     # 창 띄우지 않기
-    options.add_argument('headless')
+    options.add_argument('headless') 
      
     # Apply options
     driver = webdriver.Chrome(executable_path='C:\\Users\\hjson\\Downloads\\chromedriver.exe')
