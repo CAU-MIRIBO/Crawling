@@ -53,12 +53,12 @@ def request_with_selenium_raw(Url):
     head=driver.find_element_by_tag_name('head')
     body=driver.find_element_by_tag_name('body')
     
-    # head_src=head.get_attribute('innerHTML')
-    # body_src=body.get_attribute('innerHTML')
+    head_src=head.get_attribute('innerHTML')
+    body_src=body.get_attribute('innerHTML')
     
     # driver.close() --> driver 닫혀도 되나?
     
-    return head, body, driver
+    return head_src, body_src, driver
         
 def print_test_result(title, contents):
     

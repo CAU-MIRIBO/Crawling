@@ -103,7 +103,7 @@ class Quora:
 # https://www.quora.com/How-is-the-culture-of-Jeju-Island-different-from-the-rest-of-South-Korea
 # https://www.quora.com/What-is-the-strangest-culture-shock-you-experienced-when-visiting-South-Korea-for-the-first-time
 # https://www.quora.com/What-did-you-experience-in-South-Korea-that-would-never-happen-in-Japan
-# https://www.quora.com/Is-Hades-the-best-game-of-2020
+# url='https://www.quora.com/Is-Hades-the-best-game-of-2020'
 
 # # 예시 실행 코드
 # url='https://moviesnmore.quora.com/What-will-be-the-best-movie-of-2021-4'
