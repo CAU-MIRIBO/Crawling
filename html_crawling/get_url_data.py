@@ -3,6 +3,12 @@ from quora_html import *
 
 from summarization_process import *
 from konlpy.tag import Okt
+
+from html_crawling.keyword_process import keyword_extractor
+from html_crawling.quora_html import Quora
+from html_crawling.stackoverflow_html import Stackoverflow
+from html_crawling.summarization_process import summarization
+
 okt=Okt()
 
 from keyword_process import *
@@ -16,11 +22,12 @@ class get_url_data:
     def text_for_one_url(self,url):
         self.url = url  # url link
         # self.url_kind #for url classify
-        if "stack" in self.url:
+        if "stackoverflow.com/questions" in self.url:
             self.process_class = Stackoverflow()
             self.url_kind = 1
-            ques_header, ques_content,selected_ans_content,keyword_list, status=self.process_class.stackOverflow_process(url)
-            self.text_all =self.process_class.get_total_text(ques_header,ques_content,selected_ans_content)
+            self.ques_header, self.ques_content,self.selected_ans_content,self.keyword_list, status=self.process_class.stackOverflow_process(url)
+            self.text_all =self.process_class.get_total_text(self.ques_header, self.ques_content,
+                                                             self.selected_ans_content)
             self.lang=self.isKorean(self.text_all)
         elif "quora.com/" in self.url:
             self.process_class = Quora()
@@ -50,6 +57,9 @@ class get_url_data:
         if num==1:
             return self.run_keyword()
         elif num==2:
+            #stackoverflow 사이트 예외
+            if self.url_kind==1 and len(self.keyword_list)!=0:
+                return self.stack_run_summarization()
             return self.run_summarization()
         elif num==3:
             return self.run_sentance()
@@ -59,6 +69,9 @@ class get_url_data:
     #all text to show user
     def run_all(self):
         return self.text_all
+
+    def stack_run_summarization(self):
+        return self.ques_header,self.ques_content,self.selected_ans_content
 
     #return all combined text to run summarization outside
     def run_summarization(self):
@@ -70,6 +83,7 @@ class get_url_data:
 
     def run_keyword(self):
         if self.url_kind==1:
-            return keyword_extractor('yake',self.lang, self.text_all)
+            #return keyword_extractor('yake',self.lang, self.text_all)
+            return self.keyword_list
         elif self.url_kind==2:
             return keyword_extractor('yake',self.lang, self.text_all)
