@@ -10,13 +10,18 @@ def request_with_selenium(Url):
     # options.add_argument('window-size=1920,1080')  
     
     # 창 띄우지 않기
-    options.add_argument('headless') 
+    options.add_argument('--headless')
+    options.add_argument('disabale-gpu')
+    options.add_argument('--blink-settings=imagesEnabled=false')
+    options.add_argument('--disable-logging')
+    options.add_argument("--log-level=3")
      
     # Apply options
-    driver = webdriver.Chrome(executable_path='C:\\Users\\hjson\\Downloads\\chromedriver.exe')
+    driver = webdriver.Chrome(executable_path='C:\\Users\\hjson\\Downloads\\chromedriver.exe', options=options)
     # driver.implicitly_wait(3)
     
     driver.get(Url)
+    
     print(driver.current_url)
     
     # 페이지 내에서 값 읽어오기
@@ -40,14 +45,18 @@ def request_with_selenium_raw(Url):
     # options.add_argument('window-size=1920,1080')  
     
     # 창 띄우지 않기
-    options.add_argument('headless')
+    options.add_argument('--headless')
+    options.add_argument('disabale-gpu')
+    options.add_argument('--blink-settings=imagesEnabled=false')
+    options.add_argument('--disable-logging')
+    options.add_argument("--log-level=3")
      
     # Apply options
-    driver = webdriver.Chrome(executable_path='C:\\Users\\hjson\\Downloads\\chromedriver.exe')
+    driver = webdriver.Chrome(executable_path='C:\\Users\\hjson\\Downloads\\chromedriver.exe', options=options)
     # driver.implicitly_wait(3)
     
     driver.get(Url)
-    print(driver.current_url)
+    # print(driver.current_url)
     
     # 페이지 내에서 값 읽어오기
     head=driver.find_element_by_tag_name('head')
@@ -69,7 +78,7 @@ def print_test_result(title, contents):
     print(contents)
     print('\n')
     
-url='https://www.quora.com/How-is-the-culture-of-Jeju-Island-different-from-the-rest-of-South-Korea'
+# url='https://www.quora.com/How-is-the-culture-of-Jeju-Island-different-from-the-rest-of-South-Korea'
 # 'https://www.hani.co.kr/arti/culture/culture_general/1023318.html'
 # 'https://www.ajunews.com/view/20211215155407703'
 

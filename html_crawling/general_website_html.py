@@ -9,12 +9,15 @@ from newspaper import Article
 # from gensim.summarization.summarizer import summarize
 # from newspaper import Article
 
+# Pseudocode
+
+
 class Default:
-    url=''
-    status=0
-    title=0
-    paragraph=0
-    content=0
+    # url=''
+    # status=0
+    # title=0
+    # paragraph=0
+    # content=0
     
     # general website process
     def general_website_process(self, url):
@@ -27,22 +30,28 @@ class Default:
         
         # Case 1
         try:
-            status, title, content_paragraph, content_all=self.crawl_article_newspaper_mod(url)
+            print('Case 1 - Trying')
+            status, title, content_all=self.crawl_article_newspaper_mod(url)
         except:
-            print('newspaper3k not working. New approach plz')
             status=0
-        
-       # Case 2
+            
         if status==200:
+            content_paragraph, content_all=self.refine_content(content_all)
+            if self.check_output(title, content_all):
                 return status, title, content_paragraph, content_all
+            else:
+                print('Case 1 - Fail (No content) ')
         else:
-            try:
-                print('2nd option ==============selenium approach====================')
-                status, title, content_paragraph, content_all=self.crawl_article_lastchance(url)
-            except:
-                print('Something wrong with selenium crawling = go to 3rd option - 1 ')
-                status=0
-        
+            print('Case 1 - Fail (Module not working)')
+                
+       # Case 2
+        try:
+            # print('2nd option ==============selenium approach====================')
+            print('Case 2 - Trying')
+            status, title, content_paragraph, content_all=self.crawl_article_lastchance(url)
+        except:
+            print('Case 2 - Fail (exception in lastchance)')
+            status=0
         
         title, content_paragraph, content_all=self.fill_output(title, content_paragraph, content_all)
             
@@ -54,7 +63,7 @@ class Default:
         # output이 될 아이들
         a_status=0
         a_title=0
-        a_content_paragraph=0
+        a_content=0
         
         article=Article(url)
         article.download()
@@ -62,18 +71,19 @@ class Default:
         html=article.html
         article.parse()
         
-        content=article.text
-        image=article.top_image
-        
-        if self.check_content(content):
-            print('do some other operation maybe with selenium')
-            return 0, 0, 0, 0
-        
         a_status=200
         a_title=article.title
-        a_paragraph, a_content=self.refine_content(content)
+        a_content=article.text
+        # image=article.top_image
         
-        return a_status, a_title, a_paragraph, a_content
+        # check if content is 'Something went wrong. Wait a moment and try again.'
+        if self.check_content_from_news(a_content):
+            print('=> in Case 1 - Fail (No contents - module not supported) ')
+            return 0, 0, 0
+        
+        # a_paragraph, a_content=self.refine_content(content)
+        
+        return a_status, a_title, a_content
     
     # Option 2 -> selenium 모듈을 사용한 크롤링
     def crawl_article_lastchance(self, url):
@@ -87,8 +97,8 @@ class Default:
             # selenium으로 크롤링
             head, body, driver=request_with_selenium_raw(url)
         except:
-            print('Error in Selenium __ crawl_article_lastchance')
-            return 0, 0, 0, 0, 0
+            print('=> in Case 2 - Fail (Selenium module not working)')
+            return 0, 0, 0, 0
             
         try:
             title=driver.title
@@ -96,7 +106,7 @@ class Default:
             content_text=content_part.text
             paragraph, content_all=self.refine_content(content_text)
         except:
-            print('Error after Selenium on query part')
+            print('=> in Case 2 - Fail (Exception in querying HTML/js)')
             title, paragraph, content_all=self.fill_output(title, paragraph, content_all)
             
         driver.close()
@@ -107,23 +117,9 @@ class Default:
             paragraph, content=self.refine_content(a_description)
             status=200
         else:
-            print('Selenium worked well')
             status=200
             
         return status, title, paragraph, content_all
-            
-    
-    
-    # 별거 없는 함수 나중에 지우자
-    def crawl_general_concept(self, url):
-        cleaner=Cleaner()
-        cleaner.javascript=True
-        cleaner.style=True
-        
-        a=lxml.html.tostring(lxml.html.parse(url))
-        aa=lxml.html.tostring(cleaner.clean_html(a))
-    
-                
             
     # Option 3 -> header meta-data summary
     def check_header_metadata(self, head):
@@ -138,6 +134,9 @@ class Default:
     
     # 중복 또는 불필요한 문단 제거 - newspaper_mod에서 사용
     def refine_content(self, string):
+        
+        if string==0:
+            return 0, 0
         # 문단화
         paragraph=string.split('\n\n')
         
@@ -151,7 +150,7 @@ class Default:
         return f_paragraph, f_content
     
     # Case 1 내부 함수 ==> check content --> newspaper3k 모듈이 실행하지 못하면 False
-    def check_content(self, string):
+    def check_content_from_news(self, string):
         if 'Something went wrong. Wait a moment and try again.' in string: # 모듈 아웃풋이 저 스트링임
             return True
         elif not string:
@@ -166,11 +165,11 @@ class Default:
         
         if description:
             description.replace('\n', '')
-            if len(description)<100:
-                print(description)
+            if len(description)<30:
+                # ?print(description)
                 return False
             else:
-                print('description enough to use')
+                # print('description enough to use')
                 return True
         else:
             return False
@@ -193,7 +192,7 @@ class Default:
     
     def print_each_para(self, list):
         if list==0:
-            print('No contents : Just 0')
+            print(list)
             return
         for i in list:
             print(i)
@@ -212,10 +211,10 @@ class Default:
 
 
 
-# url='https://www.ajunews.com/view/20211215155407703'
+url='https://www.ajunews.com/view/20211215155407703'
 # url='https://www.quora.com/How-is-the-culture-of-Jeju-Island-different-from-the-rest-of-South-Korea'
 # url='https://www.hani.co.kr/arti/culture/culture_general/1023318.html'
-# 'https://moviesnmore.quora.com/What-will-be-the-best-movie-of-2021-4'
+# url ='https://moviesnmore.quora.com/What-will-be-the-best-movie-of-2021-4'
 # url='https://owl.purdue.edu/owl/subject_specific_writing/journalism_and_journalistic_writing/writing_leads.html'
 # url='https://developer.mozilla.org/en-US/docs/Web/API/Element/remove' # 이거이거 문제가 있네
 # url='https://blog.naver.com/maximusc/222698515250' # selenium 으로도 안됨....
@@ -230,8 +229,13 @@ class Default:
 # url='https://blog.naver.com/tngo1005/222717248571'
 # url='https://section.blog.naver.com/OfficialBlog.naver?currentPage=1'
 # url='https://www.google.com/search?q=python+replace&oq=spython+replace&aqs=chrome.1.69i57j0i13l9.5410j0j4&sourceid=chrome&ie=UTF-8'
-url='https://en.wikipedia.org/wiki/Game_of_Thrones'
-url='https://www.rottentomatoes.com/tv/game_of_thrones'
+# url='https://en.wikipedia.org/wiki/Game_of_Thrones'
+# url='https://www.rottentomatoes.com/tv/game_of_thrones'
+# url='https://brooklyn99.fandom.com/wiki/Raymond_Holt'
+# url='https://www.facebook.com/GameOfThrones/'         # 페북 안됨
+# url='https://www.rottentomatoes.com/tv/game_of_thrones'
+# url='http://cau.ac.kr/~bongbong/multicore22/'
+# url='https://twitter.com/HouseofDragon/status/1509193733585076228?cxt=HHwWiICsuYzt3fEpAAAA'
 
 
 arti=Default()
