@@ -1,23 +1,29 @@
 from bs4 import BeautifulSoup
 from selenium_crawling import *
 from newspaper import Article
+from similarity import *
 
+# 코드 설명
+# selenium_crawling.py의 함수 (request_with_selenium) 사용하여 작동함.
+# 일단 지금은 selenium_crawling.py랑 같은 폴더 안에 넣고 쓰는게 편할듯
+# 클래스 Default에서 general_website_process 함수만 콜하면 작동 
+# input : url - 1개
+# output : status, title, content_paragraph, content_all
+# status : 오류나거나 크롤링 내용 별거 없을 때 0 반환
+# ritle 는 글제목, content_paragraph는 문단화 한 내용, content_all은 문단화 하지 않은 전체 글
 
-# # 처음 시작할때 Webdriver 관련 오류 해결방법 -----
-# from webdriver_manager.chrome import ChromeDriverManager
-# driver = webdriver.Chrome(ChromeDriverManager().install())
-# from gensim.summarization.summarizer import summarize
-# from newspaper import Article
+# 여튼 오류나면 0, 0, [0], 0, 0 으로 아웃풋
+# quora needs selenium
 
-# Pseudocode
+# Pseudocode === 맨아래
 
 
 class Default:
     # url=''
-    # status=0
-    # title=0
-    # paragraph=0
-    # content=0
+    d_status=0
+    d_title=0
+    d_paragraph=0
+    d_content=0
     
     # general website process
     def general_website_process(self, url):
@@ -26,7 +32,6 @@ class Default:
         title=0
         content_paragraph=[]
         content_all=0
-        head_src=0
         
         # Case 1
         try:
@@ -38,6 +43,10 @@ class Default:
         if status==200:
             content_paragraph, content_all=self.refine_content(content_all)
             if self.check_output(title, content_all):
+                self.d_status=200
+                self.d_title=title
+                self.d_paragraph=content_paragraph
+                self.d_content=content_all
                 return status, title, content_paragraph, content_all
             else:
                 print('Case 1 - Fail (No content) ')
@@ -46,7 +55,7 @@ class Default:
                 
        # Case 2
         try:
-            # print('2nd option ==============selenium approach====================')
+            print('2nd option ==============selenium approach====================')
             print('Case 2 - Trying')
             status, title, content_paragraph, content_all=self.crawl_article_lastchance(url)
         except:
@@ -54,6 +63,8 @@ class Default:
             status=0
         
         title, content_paragraph, content_all=self.fill_output(title, content_paragraph, content_all)
+        if content_all!=0:
+            content_paragraph, content_all=compute_similarity(content_all)
             
         return status, title, content_paragraph, content_all
     
@@ -93,12 +104,12 @@ class Default:
         paragraph=0
         content_all=0
         
-        try:
+        # try:
             # selenium으로 크롤링
-            head, body, driver=request_with_selenium_raw(url)
-        except:
-            print('=> in Case 2 - Fail (Selenium module not working)')
-            return 0, 0, 0, 0
+        head, body, driver=request_with_selenium_raw(url)
+        # except:
+        #     print('=> in Case 2 - Fail (Selenium module not working)')
+        #     return 0, 0, 0, 0
             
         try:
             title=driver.title
@@ -118,6 +129,8 @@ class Default:
             status=200
         else:
             status=200
+            
+        
             
         return status, title, paragraph, content_all
             
@@ -165,7 +178,7 @@ class Default:
         
         if description:
             description.replace('\n', '')
-            if len(description)<30:
+            if len(description)<100:
                 # ?print(description)
                 return False
             else:
@@ -211,39 +224,51 @@ class Default:
 
 
 
-url='https://www.ajunews.com/view/20211215155407703'
-# url='https://www.quora.com/How-is-the-culture-of-Jeju-Island-different-from-the-rest-of-South-Korea'
-# url='https://www.hani.co.kr/arti/culture/culture_general/1023318.html'
-# url ='https://moviesnmore.quora.com/What-will-be-the-best-movie-of-2021-4'
-# url='https://owl.purdue.edu/owl/subject_specific_writing/journalism_and_journalistic_writing/writing_leads.html'
-# url='https://developer.mozilla.org/en-US/docs/Web/API/Element/remove' # 이거이거 문제가 있네
-# url='https://blog.naver.com/maximusc/222698515250' # selenium 으로도 안됨....
-# url='https://blog.naver.com/tmddlf/222700811326' # 네이버 블로그 전체적으로 작동 어려움
-# url='https://overseas.mofa.go.kr/ae-dubai-ko/brd/m_10772/view.do?seq=1342548'  #자가격리 잘 돌아간다
-# url='https://kin.naver.com/qna/detail.naver?d1id=6&dirId=6010102&docId=418095586&qb=7J6Q6rCA6rKp66as&enc=utf8&section=kin.ext&rank=1&search_sort=0&spq=0'
-# url='https://newsis.com/view/?id=NISX20220428_0001851291&cID=10401&pID=10400'
-# url='https://newsis.com/view/?id=NISX20220428_0001851291&cID=10401&pID=10400'
-# url='https://edition.cnn.com/2022/04/28/tech/elon-musk-twitter-leadership/index.html'
-# url='https://www.seoul.co.kr/news/newsView.php?id=20220502001007&wlog_sub=svt_006'
-# url='https://sports.news.naver.com/news?oid=109&aid=0004605358'
-# url='https://blog.naver.com/tngo1005/222717248571'
-# url='https://section.blog.naver.com/OfficialBlog.naver?currentPage=1'
-# url='https://www.google.com/search?q=python+replace&oq=spython+replace&aqs=chrome.1.69i57j0i13l9.5410j0j4&sourceid=chrome&ie=UTF-8'
-# url='https://en.wikipedia.org/wiki/Game_of_Thrones'
-# url='https://www.rottentomatoes.com/tv/game_of_thrones'
-# url='https://brooklyn99.fandom.com/wiki/Raymond_Holt'
-# url='https://www.facebook.com/GameOfThrones/'         # 페북 안됨
-# url='https://www.rottentomatoes.com/tv/game_of_thrones'
-# url='http://cau.ac.kr/~bongbong/multicore22/'
-# url='https://twitter.com/HouseofDragon/status/1509193733585076228?cxt=HHwWiICsuYzt3fEpAAAA'
 
 
-arti=Default()
-# tt, ti, hapy=arti.crawl_article_lastchance(url)
-# arti.crawl_general_concept(url)
-# a, b, c=arti.crawl_article_newspaper_mod(url)
-# arti.crawling_article(url)
-# title, contents=request_through_url(url)
+# Pseudo code
 
-status, title, para, content_all=arti.general_website_process(url)
-arti.print_test_result(title, para)
+# Default Class
+
+# --general_website_process() 함수 실행해서 크롤링
+
+# general_website_process(url):
+
+#     # newspaper3k 이용하여 1차 크롤링
+
+#     status, title, content_all = crawl_article_newspaper_mod(url)        
+#     --에러/예외 발생 시 status=0 --
+
+#     # status = 200 이면 잘 나온거 - 내용물 잘 들어있으면 리턴
+#     if status==200:
+#         if check_output(content_all):
+#         return
+
+#     #  selenium으로 2차 크롤링
+    
+#     status, title, content_paragraph, content_all=crawl_article_lastchance(url)
+#     --에러/예외 발생 시 status=0
+
+#     # 마지막 처리
+#     title, content_paragraph, content_all=fill_output(title, content_paragraph, content_all)
+
+
+# crawl_article_newspaper_mod(url):
+
+
+# # 중복 또는 불필요한 문단 제거 - newspaper_mod에서 사용
+#     def refine_content(string):
+        
+#         if string==0:
+#             return 0, 0
+#         # 문단화
+#         paragraph=string.split('\n\n')
+        
+#         # 빈 문단 제거
+#         paragraph=[(p) for p in paragraph if not p.isspace()]
+        
+#         # 중복되는 문단 제거 // 사진 참조 같은 경우 중복되는 경우 다수
+#         f_paragraph=list(dict.fromkeys(paragraph))
+#         f_content=''.join(f_paragraph)
+        
+#         return f_paragraph, f_content

@@ -13,7 +13,7 @@ def request_with_selenium(Url):
     options.add_argument('--headless')
     options.add_argument('disabale-gpu')
     options.add_argument('--blink-settings=imagesEnabled=false')
-    options.add_argument('--disable-logging')
+    # options.add_argument('--disable-logging')
     options.add_argument("--log-level=3")
      
     # Apply options
@@ -48,7 +48,7 @@ def request_with_selenium_raw(Url):
     options.add_argument('--headless')
     options.add_argument('disabale-gpu')
     options.add_argument('--blink-settings=imagesEnabled=false')
-    options.add_argument('--disable-logging')
+    # options.add_argument('--disable-logging')
     options.add_argument("--log-level=3")
      
     # Apply options
