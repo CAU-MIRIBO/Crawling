@@ -12,11 +12,14 @@ api = Api(app)
 #     if requst.
 
 
-@app.route("/option2",methods=['POS','GET'])
+@app.route("/option2",methods=['POST','GET'])
 def option2():
-    url =RRR.args.get("url")
-    x = get_url_data()
-    x.text_for_one_url(str(url))
+    url=""
+    if RRR.method == 'POST':
+        url=RRR.form
+
+        x = get_url_data()
+        x.text_for_one_url(str(url))
     #print(x.option(2))
     return str(x.option(2))
 
