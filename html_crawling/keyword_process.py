@@ -7,8 +7,8 @@ import yake
 #for korean
 def konlpy(text):
     from konlpy.tag import Okt
-    tokens = okt.phrases(text)
     okt = Okt()
+    tokens = okt.phrases(text)
     tokens = [ token for token in tokens if len(token) > 1 ] # 한 글자인 단어는 제외
     count_dict = [(token, text.count(token)) for token in tokens ]
     ranked_words = sorted(count_dict, key=lambda x:x[1], reverse=True)[:10]
@@ -16,6 +16,10 @@ def konlpy(text):
 
 
 def keyword_extractor(tagger,lang,text):
+
+    if lang=='kr':
+        return konlpy(text)
+
     if tagger=='yake':
         return yake(text,lang)
     elif tagger=='okt':

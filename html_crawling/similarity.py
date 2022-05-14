@@ -14,14 +14,14 @@ def compute_similarity(text):
     # para_sum_list.shape
 
     result=filter_para(para_sum_list, para)
-    print(len(result[0]))
-    print(result)
-    
-    print('=====================================================')
-    print(len(para))
-    for text1, i in zip(para, para_sum_list):
-        print([text1])
-        print(i)
+    # print(len(result[0]))
+    # print(result)
+    #
+    # print('=====================================================')
+    # print(len(para))
+    # for text1, i in zip(para, para_sum_list):
+    #     print([text1])
+    #     print(i)
     
     return result, ''.join(result)
 

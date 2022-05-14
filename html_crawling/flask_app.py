@@ -71,7 +71,7 @@ def ajax():
         #json.dumps(res1)
     if option2 =='1':
         res2 = connections['object'].option(2)
-        res2=json.dumps(res2)
+        #res2=json.dumps(res2)
     if option3 =='1':
         res3 = connections['object'].option(3)
         json.dumps(res3)

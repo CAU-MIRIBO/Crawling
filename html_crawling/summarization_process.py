@@ -11,7 +11,7 @@ class summarization:
         self.model_bert=Summarizer()
 
 
-    def get_summarization(self,text,type=1):
+    def get_summarization(self,text,lang):
 
         # if type==2:
         #     str = ""
@@ -21,11 +21,15 @@ class summarization:
         #     return str
 
 
-        if len(text)>3000:
-            return self.summarization_BERT(text)
-            #return self.summarization_newspaper(text)
-        else:
-            return self.summarization_KoBART(text)
+        # if len(text)>3000:
+    #         #     return self.summarization_BERT(text)
+    #         #     #return self.summarization_newspaper(text)
+    #         # else:
+    #         #     return self.summarization_KoBART(text)
+
+        if lang=='kr':
+            return self.summarization_newspaper(text)
+        return self.summarization_BERT(text)
 
     def summarization_KoBART(self, text):
         # print(text)
@@ -35,6 +39,8 @@ class summarization:
         return self.tokenizer.decode(summary_ids.squeeze().tolist(), skip_special_tokens=True)
 
     def summarization_newspaper(self, text):
+        print(text)
+        print(summarize(text))
         return summarize(text)
 
     def summarization_BERT(self,text):
