@@ -2,6 +2,7 @@ import selenium
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
+# 5/14 ver
 def request_with_selenium(Url):
     
     options = webdriver.ChromeOptions()

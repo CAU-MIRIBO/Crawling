@@ -1,11 +1,11 @@
 from general_website_html import Default
 
+# 5/14 ver
 
-
-# url='https://www.ajunews.com/view/20211215155407703'
+url='https://www.ajunews.com/view/20211215155407703'
 # url='https://www.quora.com/How-is-the-culture-of-Jeju-Island-different-from-the-rest-of-South-Korea'
 # url='https://www.hani.co.kr/arti/culture/culture_general/1023318.html'
-url ='https://moviesnmore.quora.com/What-will-be-the-best-movie-of-2021-4'
+# url ='https://moviesnmore.quora.com/What-will-be-the-best-movie-of-2021-4'
 # url='https://owl.purdue.edu/owl/subject_specific_writing/journalism_and_journalistic_writing/writing_leads.html'
 # url='https://developer.mozilla.org/en-US/docs/Web/API/Element/remove' # 이거이거 문제가 있네
 # url='https://blog.naver.com/maximusc/222698515250' # selenium 으로도 안됨....
@@ -16,7 +16,7 @@ url ='https://moviesnmore.quora.com/What-will-be-the-best-movie-of-2021-4'
 # url='https://newsis.com/view/?id=NISX20220428_0001851291&cID=10401&pID=10400'
 # url='https://edition.cnn.com/2022/04/28/tech/elon-musk-twitter-leadership/index.html'
 # url='https://www.seoul.co.kr/news/newsView.php?id=20220502001007&wlog_sub=svt_006'
-url='https://sports.news.naver.com/news?oid=109&aid=0004605358'
+# url='https://sports.news.naver.com/news?oid=109&aid=0004605358'
 # url='https://blog.naver.com/tngo1005/222717248571'
 # url='https://section.blog.naver.com/OfficialBlog.naver?currentPage=1'
 # url='https://www.google.com/search?q=python+replace&oq=spython+replace&aqs=chrome.1.69i57j0i13l9.5410j0j4&sourceid=chrome&ie=UTF-8'
@@ -25,7 +25,7 @@ url='https://sports.news.naver.com/news?oid=109&aid=0004605358'
 # url='https://brooklyn99.fandom.com/wiki/Raymond_Holt'
 # url='https://www.facebook.com/GameOfThrones/'         # 페북 안됨
 # url='https://www.rottentomatoes.com/tv/game_of_thrones'
-url='http://cau.ac.kr/~bongbong/multicore22/'
+# url='http://cau.ac.kr/~bongbong/multicore22/'
 # url='https://twitter.com/HouseofDragon/status/1509193733585076228?cxt=HHwWiICsuYzt3fEpAAAA'
 
 # 여기서부터 시작
@@ -54,7 +54,8 @@ url='https://velog.io/@zionhann/%ED%8C%8C%EC%9D%B4%EC%8D%AC-%EC%9C%A0%EB%8B%88%E
 url='https://velog.io/@dlwocks31/translation-project-management-at-big-tech'
 url='https://velog.io/@junh0328/%ED%94%84%EB%A1%A0%ED%8A%B8-%EC%97%94%EB%93%9C-%EB%A9%B4%EC%A0%91-%EC%A4%80%EB%B9%84-%ED%95%98%EC%8B%A4%EB%B6%84'
 # 이건 셀레니움으로 들어가기는 하는데 되긴함 - 이 웹사이트느 안들어가는걸루
-url='https://velog.io/@jay/elon-musk-dont-follow-the-trend'
+# url='https://velog.io/@jay/elon-musk-dont-follow-the-trend'
+
 
 # tt, ti, hapy=arti.crawl_article_lastchance(url)
 # arti.crawl_general_concept(url)
@@ -62,6 +63,6 @@ url='https://velog.io/@jay/elon-musk-dont-follow-the-trend'
 # arti.crawling_article(url)
 # title, contents=request_through_url(url)
 
-arti=Default()
-status, title, para, content_all=arti.general_website_process(url)
-arti.print_test_result(title, para)
+# arti=Default()
+# status, title, para, content_all=arti.general_website_process(url)
+# arti.print_test_result(title, para)
