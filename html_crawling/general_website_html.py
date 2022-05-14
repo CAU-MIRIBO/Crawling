@@ -3,6 +3,8 @@ from selenium_crawling import *
 from newspaper import Article
 from similarity import *
 
+# 5/14 ver
+
 # 코드 설명
 # selenium_crawling.py의 함수 (request_with_selenium) 사용하여 작동함.
 # 일단 지금은 selenium_crawling.py랑 같은 폴더 안에 넣고 쓰는게 편할듯

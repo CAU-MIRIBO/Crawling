@@ -3,6 +3,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 import numpy as np
 import math
 
+# 5/14 ver
 
 def compute_similarity(text):
     

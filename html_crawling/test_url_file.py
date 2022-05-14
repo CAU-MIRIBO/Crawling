@@ -1,6 +1,6 @@
 from general_website_html import Default
 
-
+# 5/14 ver
 
 url='https://www.ajunews.com/view/20211215155407703'
 # url='https://www.quora.com/How-is-the-culture-of-Jeju-Island-different-from-the-rest-of-South-Korea'
@@ -52,7 +52,7 @@ url='https://cainstorm.com/162' # newspaper 모드
 url='https://velog.io/@zionhann/%ED%8C%8C%EC%9D%B4%EC%8D%AC-%EC%9C%A0%EB%8B%88%EC%BD%94%EB%93%9C-%EB%AC%B8%EC%9E%90-%EB%B3%80%ED%99%98%ED%95%98%EA%B8%B0'
 # velog도 된다
 url='https://velog.io/@dlwocks31/translation-project-management-at-big-tech'
-url='https://velog.io/@junh0328/%ED%94%84%EB%A1%A0%ED%8A%B8-%EC%97%94%EB%93%9C-%EB%A9%B4%EC%A0%91-%EC%A4%80%EB%B9%84-%ED%95%98%EC%8B%A4%EB%B6%84'
+# url='https://velog.io/@junh0328/%ED%94%84%EB%A1%A0%ED%8A%B8-%EC%97%94%EB%93%9C-%EB%A9%B4%EC%A0%91-%EC%A4%80%EB%B9%84-%ED%95%98%EC%8B%A4%EB%B6%84'
 # 이건 셀레니움으로 들어가기는 하는데 되긴함 - 이 웹사이트느 안들어가는걸루
 # url='https://velog.io/@jay/elon-musk-dont-follow-the-trend'
 
@@ -63,6 +63,6 @@ url='https://velog.io/@junh0328/%ED%94%84%EB%A1%A0%ED%8A%B8-%EC%97%94%EB%93%9C-%
 # arti.crawling_article(url)
 # title, contents=request_through_url(url)
 
-arti=Default()
-status, title, para, content_all=arti.general_website_process(url)
-arti.print_test_result(title, para)
+# arti=Default()
+# status, title, para, content_all=arti.general_website_process(url)
+# arti.print_test_result(title, para)
