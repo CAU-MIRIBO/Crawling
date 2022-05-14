@@ -1,41 +1,80 @@
-from xml.dom.minidom import Document
 from bs4 import BeautifulSoup
 from selenium_crawling import *
 from newspaper import Article
+from similarity import *
 
-# # 처음 시작할때 Webdriver 관련 오류 해결방법
-# from webdriver_manager.chrome import ChromeDriverManager
+# 코드 설명
+# selenium_crawling.py의 함수 (request_with_selenium) 사용하여 작동함.
+# 일단 지금은 selenium_crawling.py랑 같은 폴더 안에 넣고 쓰는게 편할듯
+# 클래스 Default에서 general_website_process 함수만 콜하면 작동 
+# input : url - 1개
+# output : status, title, content_paragraph, content_all
+# status : 오류나거나 크롤링 내용 별거 없을 때 0 반환
+# ritle 는 글제목, content_paragraph는 문단화 한 내용, content_all은 문단화 하지 않은 전체 글
 
-# driver = webdriver.Chrome(ChromeDriverManager().install())
+# 여튼 오류나면 0, 0, [0], 0, 0 으로 아웃풋
+# quora needs selenium
 
-# from gensim.summarization.summarizer import summarize
-# from newspaper import Article
+# Pseudocode === 맨아래
+
 
 class Default:
-
-    def crawl_article_lastchance(self, url):
-        
-        # selenium으로 크롤링
-        head, body, driver=request_with_selenium_raw(url)
-        # body_soup=BeautifulSoup(body, 'html.parser')
-        
-        title=driver.title
-
-        # content_part=body.find_element_by_class_name('article_con')
-        content_part=body
-        content=content_part.text
+    # url=''
+    d_status=0
+    d_title=0
+    d_paragraph=0
+    d_content=0
     
+    # general website process
+    def general_website_process(self, url):
         
-        driver.close()
-        l_title=title
-        l_contents=content
-        l_paragraph=0
+        status=0        
+        title=0
+        content_paragraph=[]
+        content_all=0
         
-        self.print_test_result(l_title, l_contents)
+        # Case 1
+        try:
+            print('Case 1 - Trying')
+            status, title, content_all=self.crawl_article_newspaper_mod(url)
+        except:
+            status=0
+            
+        if status==200:
+            content_paragraph, content_all=self.refine_content(content_all)
+            if self.check_output(title, content_all):
+                self.d_status=200
+                self.d_title=title
+                self.d_paragraph=content_paragraph
+                self.d_content=content_all
+                return status, title, content_paragraph, content_all
+            else:
+                print('Case 1 - Fail (No content) ')
+        else:
+            print('Case 1 - Fail (Module not working)')
+                
+       # Case 2
+        try:
+            print('2nd option ==============selenium approach====================')
+            print('Case 2 - Trying')
+            status, title, content_paragraph, content_all=self.crawl_article_lastchance(url)
+        except:
+            print('Case 2 - Fail (exception in lastchance)')
+            status=0
         
-        return l_title, l_paragraph, l_contents
+        title, content_paragraph, content_all=self.fill_output(title, content_paragraph, content_all)
+        if content_all!=0:
+            content_paragraph, content_all=compute_similarity(content_all)
+            
+        return status, title, content_paragraph, content_all
     
+    # Case 1 => newspaper 모듈을 사용한 크롤링
     def crawl_article_newspaper_mod(self, url):
+        
+        # output이 될 아이들
+        a_status=0
+        a_title=0
+        a_content=0
         
         article=Article(url)
         article.download()
@@ -43,80 +82,193 @@ class Default:
         html=article.html
         article.parse()
         
-        content=article.text
-        image=article.top_image
-        
-        if self.check_content(content):
-            print('do some other operation maybe with selenium')
-        
+        a_status=200
         a_title=article.title
-        a_content_paragraph=self.refine_content(content)
-        a_content=content
+        a_content=article.text
+        # image=article.top_image
         
-        # nlp 작동 벗 쓰레기
-        # article.nlp()
-        # keywords=article.keywords
-        # summary=article.summary
-        return a_title, a_content_paragraph, a_content
+        # check if content is 'Something went wrong. Wait a moment and try again.'
+        if self.check_content_from_news(a_content):
+            print('=> in Case 1 - Fail (No contents - module not supported) ')
+            return 0, 0, 0
+        
+        # a_paragraph, a_content=self.refine_content(content)
+        
+        return a_status, a_title, a_content
+    
+    # Option 2 -> selenium 모듈을 사용한 크롤링
+    def crawl_article_lastchance(self, url):
+        
+        status=0
+        title=0
+        paragraph=0
+        content_all=0
+        
+        # try:
+            # selenium으로 크롤링
+        head, body, driver=request_with_selenium_raw(url)
+        # except:
+        #     print('=> in Case 2 - Fail (Selenium module not working)')
+        #     return 0, 0, 0, 0
+            
+        try:
+            title=driver.title
+            content_part=driver.find_element_by_tag_name('body')
+            content_text=content_part.text
+            paragraph, content_all=self.refine_content(content_text)
+        except:
+            print('=> in Case 2 - Fail (Exception in querying HTML/js)')
+            title, paragraph, content_all=self.fill_output(title, paragraph, content_all)
+            
+        driver.close()
+        
+        # check title and content
+        if not self.check_output(title, content_all):
+            title, a_description=self.check_header_metadata(head)
+            paragraph, content=self.refine_content(a_description)
+            status=200
+        else:
+            status=200
+            
+        
+            
+        return status, title, paragraph, content_all
+            
+    # Option 3 -> header meta-data summary
+    def check_header_metadata(self, head):
+        
+        l_head=BeautifulSoup(head, 'html.parser')
+        # g_type=l_head.find('meta', {'property' :'og:type'}).attrs['content']
+        g_title=l_head.find('meta', {'property':'og:title'}).attrs['content']
+        g_description=l_head.find('meta', {'property': 'og:description'}).atrrs['content']
+        
+        return g_title, g_description
         
     
+    # 중복 또는 불필요한 문단 제거 - newspaper_mod에서 사용
     def refine_content(self, string):
+        
+        if string==0:
+            return 0, 0
         # 문단화
         paragraph=string.split('\n\n')
-        # self.print_each_para(paragraph)
         
         # 빈 문단 제거
         paragraph=[(p) for p in paragraph if not p.isspace()]
-        # self.print_each_para(paragraph)
         
         # 중복되는 문단 제거 // 사진 참조 같은 경우 중복되는 경우 다수
         f_paragraph=list(dict.fromkeys(paragraph))
-        self.print_each_para(f_paragraph)
+        f_content=''.join(f_paragraph)
         
-        return f_paragraph
+        return f_paragraph, f_content
     
-    def check_content(self, string):
-        if 'Something went wrong. Wait a moment and try again.' in string:
+    # Case 1 내부 함수 ==> check content --> newspaper3k 모듈이 실행하지 못하면 False
+    def check_content_from_news(self, string):
+        if 'Something went wrong. Wait a moment and try again.' in string: # 모듈 아웃풋이 저 스트링임
             return True
         elif not string:
             return True
         else:
             return False
         
+    # Case 2 내부 함수 ==> check output data
+    def check_output(self, title, description):
+        if not title:
+            return False
+        
+        if description:
+            description.replace('\n', '')
+            if len(description)<100:
+                # ?print(description)
+                return False
+            else:
+                # print('description enough to use')
+                return True
+        else:
+            return False
+    
+    # 내부에 아무것도 없으면 0으로 채워주는 함수
+    def fill_output(self, title, para, content_all):
+        if not title:
+            title=0
+        
+        if content_all:
+            predict_code=content_all.count('{')+content_all.count('}')
+            if predict_code>30:
+                content_all=0
+                para=0
+        else:
+            content_all=0
+            para=0
+            
+        return title, para, content_all
+    
     def print_each_para(self, list):
+        if list==0:
+            print(list)
+            return
         for i in list:
             print(i)
             print('\n')
         print('==========================================')
-        
-    def header_process(self, soup):
-        # g_title=g_head.find(attrs={'property':'og:title'})
-        # g_container=soup.body
-        # g_content=g_container #.find(attrs={'class':'e-content post-content'})
-        # contents=g_content.text
-        
-        print('not completed')
-    
             
-    def print_test_result(self, title, contents):
+            
+    def print_test_result(self, title, content_para):
         
         print('================process done========================')
         print('\n----------Title-----------\n')
         print(title)
         print('\n-------------Content---------------\n')
-        print(contents)
+        self.print_each_para(content_para)
         print('\n')
 
 
 
-url='https://www.ajunews.com/view/20211215155407703'
-# 'https://www.quora.com/How-is-the-culture-of-Jeju-Island-different-from-the-rest-of-South-Korea'
-# 'https://www.hani.co.kr/arti/culture/culture_general/1023318.html'
-# 'https://www.ajunews.com/view/20211215155407703'
 
-arti=Default()
-tt, ti, hapy=arti.crawl_article_lastchance(url)
-# a, b, c=arti.crawl_article_newspaper_mod(url)
-# arti.crawling_article(url)
-# title, contents=request_through_url(url)
-# print_test_result(title,contents)
+
+# Pseudo code
+
+# Default Class
+
+# --general_website_process() 함수 실행해서 크롤링
+
+# general_website_process(url):
+
+#     # newspaper3k 이용하여 1차 크롤링
+
+#     status, title, content_all = crawl_article_newspaper_mod(url)        
+#     --에러/예외 발생 시 status=0 --
+
+#     # status = 200 이면 잘 나온거 - 내용물 잘 들어있으면 리턴
+#     if status==200:
+#         if check_output(content_all):
+#         return
+
+#     #  selenium으로 2차 크롤링
+    
+#     status, title, content_paragraph, content_all=crawl_article_lastchance(url)
+#     --에러/예외 발생 시 status=0
+
+#     # 마지막 처리
+#     title, content_paragraph, content_all=fill_output(title, content_paragraph, content_all)
+
+
+# crawl_article_newspaper_mod(url):
+
+
+# # 중복 또는 불필요한 문단 제거 - newspaper_mod에서 사용
+#     def refine_content(string):
+        
+#         if string==0:
+#             return 0, 0
+#         # 문단화
+#         paragraph=string.split('\n\n')
+        
+#         # 빈 문단 제거
+#         paragraph=[(p) for p in paragraph if not p.isspace()]
+        
+#         # 중복되는 문단 제거 // 사진 참조 같은 경우 중복되는 경우 다수
+#         f_paragraph=list(dict.fromkeys(paragraph))
+#         f_content=''.join(f_paragraph)
+        
+#         return f_paragraph, f_content
