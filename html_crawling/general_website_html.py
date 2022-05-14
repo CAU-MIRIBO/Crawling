@@ -17,7 +17,11 @@ from similarity import *
 # 여튼 오류나면 0, 0, [0], 0, 0 으로 아웃풋
 # quora needs selenium
 
-# Pseudocode === 맨아래
+# ================== 실행방법은 요러케 =====================
+# arti=Default()
+# status, title, para, content_all=arti.general_website_process(url)
+# arti.print_test_result(title, para)
+
 
 
 class Default:
@@ -223,54 +227,3 @@ class Default:
         print('\n-------------Content---------------\n')
         self.print_each_para(content_para)
         print('\n')
-
-
-
-
-
-# Pseudo code
-
-# Default Class
-
-# --general_website_process() 함수 실행해서 크롤링
-
-# general_website_process(url):
-
-#     # newspaper3k 이용하여 1차 크롤링
-
-#     status, title, content_all = crawl_article_newspaper_mod(url)        
-#     --에러/예외 발생 시 status=0 --
-
-#     # status = 200 이면 잘 나온거 - 내용물 잘 들어있으면 리턴
-#     if status==200:
-#         if check_output(content_all):
-#         return
-
-#     #  selenium으로 2차 크롤링
-    
-#     status, title, content_paragraph, content_all=crawl_article_lastchance(url)
-#     --에러/예외 발생 시 status=0
-
-#     # 마지막 처리
-#     title, content_paragraph, content_all=fill_output(title, content_paragraph, content_all)
-
-
-# crawl_article_newspaper_mod(url):
-
-
-# # 중복 또는 불필요한 문단 제거 - newspaper_mod에서 사용
-#     def refine_content(string):
-        
-#         if string==0:
-#             return 0, 0
-#         # 문단화
-#         paragraph=string.split('\n\n')
-        
-#         # 빈 문단 제거
-#         paragraph=[(p) for p in paragraph if not p.isspace()]
-        
-#         # 중복되는 문단 제거 // 사진 참조 같은 경우 중복되는 경우 다수
-#         f_paragraph=list(dict.fromkeys(paragraph))
-#         f_content=''.join(f_paragraph)
-        
-#         return f_paragraph, f_content

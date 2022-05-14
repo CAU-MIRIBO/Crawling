@@ -56,13 +56,12 @@ url='https://velog.io/@dlwocks31/translation-project-management-at-big-tech'
 # 이건 셀레니움으로 들어가기는 하는데 되긴함 - 이 웹사이트느 안들어가는걸루
 # url='https://velog.io/@jay/elon-musk-dont-follow-the-trend'
 
-
 # tt, ti, hapy=arti.crawl_article_lastchance(url)
 # arti.crawl_general_concept(url)
 # a, b, c=arti.crawl_article_newspaper_mod(url)
 # arti.crawling_article(url)
 # title, contents=request_through_url(url)
 
-# arti=Default()
-# status, title, para, content_all=arti.general_website_process(url)
-# arti.print_test_result(title, para)
+arti=Default()
+status, title, para, content_all=arti.general_website_process(url)
+arti.print_test_result(title, para)

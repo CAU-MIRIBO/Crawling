@@ -112,14 +112,15 @@ def request_with_ajax(Url):
         return result;
     })}'''
 
-    result=js2py.eval_js(jscode)
-    print(result)
+    #result=js2py.eval_js(jscode)
+    #print(result)
     print("wow")
 
 def print_test_result(title, contents):
     
     print('================process done========================')
     print('\n----------Title-----------\n')
+    
     print(title)
     print('\n-------------Content---------------\n')
     print(contents)
