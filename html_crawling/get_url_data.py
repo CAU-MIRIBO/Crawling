@@ -4,10 +4,10 @@ from quora_html import *
 from summarization_process import *
 from konlpy.tag import Okt
 
-from html_crawling.keyword_process import keyword_extractor
-from html_crawling.quora_html import Quora
-from html_crawling.stackoverflow_html import Stackoverflow
-from html_crawling.summarization_process import summarization
+from keyword_process import keyword_extractor
+from quora_html import Quora
+from stackoverflow_html import Stackoverflow
+from summarization_process import summarization
 
 okt=Okt()
 

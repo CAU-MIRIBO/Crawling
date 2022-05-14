@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="'UTF-8">
+    <meta http-equiv="'X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,
+    initial-scale=1.0">
+    <meta proterty="og:site_name" contnet="why 안보여">
+    <title>똥망똥망</title>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+
+</head>
+<body>
+    <h2>제발 되라 plz : </h2>
+    <button type="button" id="btn_data">눌러</button>    
+    <input type="text" id="url11" placeholder="URL">
+
+    
+
+    <div id="data"></div>
+
+    <script></script>
+    <script>
+        
+        var output;
+        let send_url={"url": "https://stackoverflow.com/questions/51861577/python-list-function-or-list-comprehension"};
+
+        $("#btn_data").click(function(){
+
+            var url1 = $('#url11').val();
+            //loading();
+            //loadURL();
+            $.ajax({
+                type: 'get',
+                url:"https://proxyformiribo.herokuapp.com/"+url1,
+                async: true,
+                data : send_url,
+                success: function(result){
+
+                    console.log("[requestPostBodyJson] : [result] : "+result.status); 
+                    $("#data").html(result);
+                    
+
+                    //const elements=document.getElementsByClassName("ff-sans ps-fixed z-nav-fixed ws4 sm:w-auto p32 sm:p16 bg-black-750 fc-white bar-lg b16 l16 r16 js-consent-banner");
+                    //while(elements.length>0){
+                    //    console.log("Found class");
+                    //    elements[0].parentNode.removeChild(elements[0]);
+                    //}
+                    
+                    //var site=$(result).fin55555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555d("meta[content]").text();
+                    //console.log(result);
+
+                    var found=$(result).find('#ff-sans ps-fixed z-nav-fixed ws4 sm:w-auto p32 sm:p16 bg-black-750 fc-white bar-lg b16 l16 r16 js-consent-banner').remove();
+                    output=result;
+
+                    //alert(result);
+                   
+                    //$('meta').find('Stack Overflow')
+                    console.log("[find status]: "+found);
+
+
+
+                    //alert("성공")
+                    //var element=$(result);
+                    //var find=$(result).find('br')
+                    //var find=$('.인코딩', element);
+                    //$("#data").text(url_html);
+                    //console.log(find);
+                    //$("p:contains('인코딩')")
+
+    				   			
+                },
+                error : function(e){
+                    alert(e.responseText)
+                    console.log(e);
+    				console.log("[requestPostBodyJson] : [error] : ");    				
+    				//console.log("")
+                },
+                complete : function(data, textStatus){
+                    //console.log("");
+    				console.log("[requestPostBodyJson] : [complete] : ");
+    				//console.log(""); 
+                }
+            });
+
+       
+        });
+
+        function loadURL(){
+            var url="https://stackoverflow.com/questions/51861577/python-list-function-or-list-comprehension";
+
+            var xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+            xmlhttp.open("GET", url.value, "false");
+            xmlhttp.send();
+            document.all.output.innerText=xmlhttmp.responseText;
+            alert(xmlhttmp.responseText);
+        }
+        function loading(){
+            sel=document.getElementById("site");
+            window.location="https://naver.com";
+        }
+
+        //ff-sans ps-fixed z-nav-fixed ws4 sm:w-auto p32 sm:p16 bg-black-750 fc-white bar-lg b16 l16 r16 js-consent-banner
+    
+    </script>
+</body>
+</html>
+
+<!-- https://raw.githubusercontent.com/paullabkorea/10000hour/main/index.html -->
+<!-- $("data").load("https://raw.githubusercontent.com/paullabkorea/coronaVaccinationStatus/main/data/data.json"); -->
+<!-- 
+xhrFields: {
+    withCredentials: false
+  },
+headers: {
+    'Access-Control-Allow-Credentials' : true,
+    'Access-Control-Allow-Origin':'*',
+    'Access-Control-Allow-Methods':'GET',
+    'Access-Control-Allow-Headers':'application/json',
+  }, -->
+
+  <!-- <script>
+    
+    var output;
+    let send_url={"url": "https://stackoverflow.com/questions/51861577/python-list-function-or-list-comprehension"};
+
+    $("#btn_data").click(function(){
+        $("#data").load("https://m.blog.naver.com/dndlab/221783285664",
+        function(responseText,statustext,xhr){
+            alert(responseText)
+            // console.log(responseText);
+            console.log(statustext);
+            console.log(xhr);
+            console.log(xhr.status);
+        }
+        );
+    });
+</script> -->
+
+<!-- 
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="'UTF-8">
+    <meta http-equiv="'X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,
+    initial-scale=1.0">
+    <title>전쟁전쟁</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js">
+    </script>
+
+</head>
+<body>
+    <button type="button" id="btn_data">인생..</button>
+    <div id="data">data</div>
+    <script>
+
+        var output;
+        let send_url={"url": "https://stackoverflow.com/questions/51861577/python-list-function-or-list-comprehension"};
+
+        $("#btn_data").click(function(){
+            $.ajax({
+                type: 'get',
+                url:"https://stackoverflow.com/questions/51861577/python-list-function-or-list-comprehension",
+                async: true,
+                data : send_url,
+                success: function(result){
+                    output=result;
+                    alert(output);
+
+                    //console.log("");
+    				console.log("[requestPostBodyJson] : [result] : "+JSON.stringfy(result));    				
+    				//console.log("")
+                },
+                error : function(e){
+                    alert(e.responseText)
+                    //console.log("");
+    				console.log("[requestPostBodyJson] : [error] : "+JSON.stringify(e) );    				
+    				//console.log("")
+                },
+                complete : function(data, textStatus){
+                    //console.log("");
+    				console.log("[requestPostBodyJson] : [complete] : " + textStatus);
+    				//console.log(""); 
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
+-->
+
+<!-- https://raw.githubusercontent.com/paullabkorea/10000hour/main/index.html -->
+<!-- $("data").load("https://raw.githubusercontent.com/paullabkorea/coronaVaccinationStatus/main/data/data.json"); -->
+
+<!-- 
+둘다 http 전송 방식의 타입
+get : 캐시 남아서 브라우져 히스토리에 남음, select 기능, 전송 속도 우수
+-> 서버에 데이터를 가져와서 보여주기에 적합함
+post : 기록 안남음, 정보 숨기기 가능, url 길이 무제한, update 기능
+-> 서버의 값, 상태를 바꾸기는게 우수 (update, delete, insert) -->
+
+<!-- 
+==> 확장 프로그램이 넘기는 값은
+json_from_program={
+    url : 페이지 url
+    option1: True/False
+    option2: True/False
+    //option3:          - 검색어
+}
+
+==> 서버가 반환하는 값이고
+json_from_server={
+    status : 200/404
+    page_type : 1/2/3 s/q/g 
+        ==> stackoverflow : 질문/질문내용/답변 //// quora : 질문/답변 /// 일반 페이지 : 내용
+    option1 : keyword (list)
+    option2 : summary (tuple) ==> 나중에 해결
+    //option3: 
+    }
+
+
+stackoverflow/quora/일반페이지
+
+보내는 data는 크롬 확장 프로그램으로부터 온 url을 포함한 json
+받는 data도 아마 json ==>status, title, content, 
+stackoverflow는 status, question, question_contents, answer
+quora는 question, answer
+다른 일반 페이지들은 title, content로 구성된 json file일 것이라고 가정
+
+
+소통 (중간다리 역할)
+=> 백엔드 (모듈 실행 flask 사용하여 / 모듈의 실행 시간을 단축하도록)
+==> 생성자를 글로벌하게 사용하기 위해 고생고생
+
+역할 분담 // 사이에서 소통하는 역할 했어야 했다. 자처해서 ==> 예상보다 할일 일찍 끝남 (일찍 끝난 이유: )
+=> ajax로 flask랑 (local api) 크롬확장 프로그램을 연결하는 역할
+=> input - output 의논해서 야매로 정함
+==> 자처해서 검색어 문장 미리보기 기능을 구현하려고 하다가 전체미리보기 까지 얻어걸림
+
+==> ajax 하려했다가 안됨/ fetch 쓰려고 했다가 안됨 / window.location 쓰면 되기는 하는데 걍 로딩임 간지가 없어(기록에 다남아)
+==> Trouble shooting : 얻고자하는 웹소스가 CORS 정책 때문에 가지고 올 수 없었음 / SOP
+-> 위 문제 해결하기 위해서 JSONP를 랩핑해서 통신하는 법 조사 ==> 이 방법 망
+-> 결국 프록시 서버 만들었어 !!
+-> HEROKU 라는 프록시 서버 만들어주는 웹사이트가 갑자기 일을 못해서 CLIENT로 깃헙에 연결 - 개고생
+
+
+=> 프론트 연결 -->
+
+<!-- timeout 설정해야할듯 -->
+<!-- JSON.stringify(response) -->

@@ -2,7 +2,7 @@ from flask import Flask
 from flask import request as RRR
 from flask_restx import Api, Resource
 #import urllib
-from html_crawling.get_url_data import get_url_data
+from get_url_data import get_url_data
 
 app = Flask(__name__)
 api = Api(app)
