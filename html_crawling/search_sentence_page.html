@@ -15,9 +15,7 @@
     <button type="button" id="btn_data" style="WIDTH: 80pt; HEIGHT: 20pt">눌러</button>    
     <input type="text" id="url11" placeholder="URL" style="WIDTH: 100pt; HEIGHT: 15pt">
     <input type="text" id="search" placeholder="검색어" style="WIDTH: 100pt; HEIGHT: 15pt">
-
-    <p>&nbsp;</p>
-    <button type="button" id="2nd_btn" style="WIDTH: 80pt; HEIGHT: 20pt">보여주라</button>
+   
     <p>&nbsp;</p>
     <div id="data"></div>
 
@@ -25,23 +23,18 @@
     <script>
         
         var output;
+        var url1;
         var search_word;
-        let send_url={"url": "https://stackoverflow.com/questions/51861577/python-list-function-or-list-comprehension"};
-
+        
         $("#btn_data").click(function(){
             
-            var uhtml=load_ajax();                 
-        });
-        $("#2nd_btn").click(function(){
-            //console.log(output)      
-            find_search_word(search_word, output);
-                       
+            url1 = $('#url11').val();
+            search_word=$('#search').val();
+            load_ajax();
         });
         
         
         function load_ajax() {
-            search_word=$('#search').val();
-            var url1 = $('#url11').val();
 
             try{
             //loading();
@@ -50,14 +43,13 @@
                     type: 'get',
                     url:"https://proxyformiribo.herokuapp.com/"+url1,
                     async: true,
-                    data : send_url,
                     success: function(result){
 
                         console.log("[requestPostBodyJson] : [result] : 성공"+result.status);
                         //console.log(result);
                         //$("#data").html(result);
                         output=result;
-                        return output;
+                        find_search_word();
                                     
                     },
                     error : function(e){
@@ -77,34 +69,55 @@
             }
         }
 
-        function find_search_word(word, uhtml){
+        function find_search_word(){
 
+            
             console.log(search_word);
 
             let parser=new DOMParser();
             const doc=parser.parseFromString(output, 'text/html');
-            console.log(doc);
-
-            p_container=doc.getElementsByTagName('p');
-            console.log(p_container)
+            //console.log(doc);
             
-            match_element=[]
-            highlight_mark="<mark>"+word+"</mark>";
-
-            //var found=$(output).filter("#article")
-            //console.log(output)
-            for (var i=0; i<p_container.length; i++){
-                if (p_container[i].innerText.includes(word)){
-                    console.log(i);
-                    new_html=p_container[i].innerHTML.replace(word, highlight_mark)
-                    match_element.push(new_html);
+            // text를 포함한 태그 찾기
+            text_tags='p, span, br, h1, h2, h3, h4, strong, em, blockquote, code, li';
+            text_container=doc.querySelectorAll(text_tags);
+            //console.log(text_container)
+            
+            // innerText =="" 인거 빼기
+            inner_container=[];
+            for (var i=0; i<text_container.length; i++){
+                if (text_container[i].innerText!=""){
+                    inner_container.push(text_container[i]);
                 }
             }
+            //console.log(inner_container);
+            
+            // match 되는 element 요소들 찾기
+            match_element=[]
+            try{
+                for (var i=0; i<inner_container.length; i++){
+                    if (inner_container[i].innerText.toLowerCase().includes(search_word.toLowerCase())){
+                        console.log(i);
+                        match_html=inner_container[i].innerHTML;
+
+                        reg=new RegExp(search_word, 'gi');
+                        //console.log(reg);
+                        new_html=match_html.replace(reg, function(str){
+                            return "<mark>"+str+"</mark>"
+                        });
+                        match_element.push(new_html+'<br>');
+                    }
+                }
+            } catch{
+                console.log('Error in matching for oop')
+            }
             match_element.push('<span style="background-color: #FFFF00"></span>');
-            console.log(match_element);
+            //console.log(match_element);
             $("#data").html(match_element);
+            //console.log(output)
 
         }
+
         function loadURL(){
             var url="https://stackoverflow.com/questions/51861577/python-list-function-or-list-comprehension";
 
@@ -179,4 +192,4 @@ quora는 question, answer
 -> HEROKU 라는 프록시 서버 만들어주는 웹사이트가 갑자기 일을 못해서 CLIENT로 깃헙에 연결 - 개고생
 
 
-=> 프론트 연결 -->
+=> 프론트 연결 -->"
