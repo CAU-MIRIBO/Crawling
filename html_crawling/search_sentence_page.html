@@ -100,12 +100,21 @@
                         console.log(i);
                         match_html=inner_container[i].innerHTML;
 
-                        reg=new RegExp(search_word, 'gi');
+                        var english=/^[A-Za-z0-9]*$/;
+                        if (english.test(search_word)){
+                            reg=new RegExp(search_word, 'gi');
                         //console.log(reg);
                         new_html=match_html.replace(reg, function(str){
                             return "<mark>"+str+"</mark>"
                         });
                         match_element.push(new_html+'<br>');
+                        }
+                        else{
+                            highlight_mark="<mark>"+search_word+"</mark>";
+                            new_html=match_html.replace(search_word, highlight_mark)
+                            match_element.push(new_html);
+                        }
+                        
                     }
                 }
             } catch{
