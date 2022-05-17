@@ -41,7 +41,31 @@ connections['count']=0
 #         persistent_python_object = db.Column() # <-- would like to add python object here
 #         self.persistent_python_object = object_to_store
 
+@app.route('/option1', methods=['POST'])
+def option1():
+    data=RRR.get_json()
+    url = data['url']
+    option1 = data["option1"]
+    connections['object'].text_for_one_url(str(url))
 
+    res1 = connections['object'].option(1)
+
+    return  jsonify(result = "success", option1= res1)
+
+@app.route('/option2', methods=['POST'])
+def option2():
+    data=RRR.get_json()
+    url = data['url']
+    option2 = data["option2"]
+    connections['object'].text_for_one_url(str(url))
+
+    res2 = connections['object'].option(2)
+
+    return jsonify(result="success", option2=res2)
+
+
+
+#=======================================================
 @app.route('/ajax', methods=['POST'])
 def ajax():
     data = RRR.get_json()
@@ -52,7 +76,7 @@ def ajax():
     print(connections['count'])
 
     url=data['url']
-    option1 = data["option2"]
+    option1 = data["option1"]
     option2 = data["option2"]
     option3 = data["option3"]
     #option4 = data["option4"]
