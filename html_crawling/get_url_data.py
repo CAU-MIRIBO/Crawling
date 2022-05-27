@@ -1,3 +1,4 @@
+import json
 
 from konlpy.tag import Okt
 
@@ -24,9 +25,9 @@ class get_url_data:
         if "stackoverflow.com/questions" in self.url:
             self.process_class = Stackoverflow()
             self.url_kind = 1
-            self.ques_header, self.ques_content,self.selected_ans_content,self.keyword_list, status=self.process_class.stackOverflow_process(url)
-            self.text_all =self.process_class.get_total_text(self.ques_header, self.ques_content,
-                                                             self.selected_ans_content)
+            self.ques_header, self.ques_content_str,self.selected_ans_content_str,self.ques_all_json, self.keyword_list, status=self.process_class.stackOverflow_process(url)
+            self.text_all =self.process_class.get_total_text(self.ques_header, self.ques_content_str,
+                                                             self.selected_ans_content_str)
             self.lang=self.isKorean(self.text_all)
         elif "quora.com/" in self.url:
             self.process_class = Quora()
@@ -82,7 +83,7 @@ class get_url_data:
         return self.text_all
 
     def stack_run_summarization(self):
-        return self.ques_header,self.ques_content,self.selected_ans_content
+        return self.ques_all_json
 
     #return all combined text to run summarization outside
     def run_summarization(self):

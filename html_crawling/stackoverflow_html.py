@@ -1,3 +1,5 @@
+import json
+
 import requests
 from bs4 import BeautifulSoup
 
@@ -91,10 +93,9 @@ class Stackoverflow:
 
 
         ques_header = ques_header.get_text()
-        ques_content = self.extract_tag(str(ques_content))
-        selected_ans_content = self.extract_tag(str(selected_ans_content))
+        ques_content_str,selected_ans_content_str,ques_all_json = self.extract_tag(ques_header,str(ques_content),str(selected_ans_content))
 
-        return ques_header, ques_content,selected_ans_content, keyword_list, status
+        return ques_header, ques_content_str,selected_ans_content_str,ques_all_json, keyword_list, status
 
     # 불필요한 html 제거한 html들을 합치는 역할 (this question already has answers here) --미사용
     def merge_htmlarray(self, ques_content_arr):
@@ -167,30 +168,73 @@ class Stackoverflow:
             print(response.status_code)
             return response.status_code, 0
 
-    def extract_tag(self, text):
+    def extract_tag(self, header,text1, text2):
 
-        html1 = str(text)
+        html1 = str(text1)
+        html2 = str(text2)
 
-        body = re.findall('(?<=\<p>)(.*?)(?=<\/p>)|(?<=\<pre>)(.*?)(?=<\/pre>)', html1, re.I | re.S)
+        body1 = re.findall('(?<=\<p>)(.*?)(?=<\/p>)|(?<=\<pre>)(.*?)(?=<\/pre>)', html1, re.I | re.S)
+        body2 = re.findall('(?<=\<p>)(.*?)(?=<\/p>)|(?<=\<pre>)(.*?)(?=<\/pre>)', html2, re.I | re.S)
 
+        id_ask =[]
+        id_ans =[]
+        text_ask=[]
+        text_ans=[]
 
-        ret = []
-        for i in body:
+        ret=[]
+        ret2 = []
+        for i in body1:
             ret.append(list(i))
             if (i[0] == ""):
                 # print("\n<code>")
                 ret[-1][1] = re.sub('<.+?>', '', i[1], 0, re.I | re.S)
                 ret[-1][0] = 1
+                id_ask.append(1)
+                text_ask.append(ret[-1][1])
                 # print(ret[-1][1])
             else:
                 # print("\n<paragraph>")
                 ret[-1][1] = i[0]
                 ret[-1][0] = 0
+
+                id_ask.append(0)
+                text_ask.append(ret[-1][1])
+
                 # print(ret[-1][1])
+        for i in body2:
+            ret2.append(list(i))
+            if (i[0] == ""):
+                # print("\n<code>")
+                ret2[-1][1] = re.sub('<.+?>', '', i[1], 0, re.I | re.S)
+                ret2[-1][0] = 1
+                # print(ret[-1][1])
+                id_ans.append(1)
+                text_ans.append(ret2[-1][1])
+            else:
+                # print("\n<paragraph>")
+                ret2[-1][1] = i[0]
+                ret2[-1][0] = 0
+                # print(ret[-1][1])
+                id_ans.append(0)
+                text_ans.append(ret2[-1][1])
+
+        ques_content_str=ret
+        selected_ans_content_str=ret2
 
         #[[0,"paragraph"],[1,"code"]]
 
-        return ret
+        somedict = {"header":{"header":header},
+                    "id": {"ask":[x for x in id_ask],
+                           "ans":[y for y in id_ans]
+                           },
+                    "text": {"ask": [x for x in text_ask],
+                             "ans": [y for y in text_ans]
+                        }
+                    }
+
+
+        somedict=json.dumps(somedict)
+        return ques_content_str,selected_ans_content_str,somedict
 
         # return splited text : head/content(list)/answer(list)
 

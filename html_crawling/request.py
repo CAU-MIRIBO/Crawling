@@ -12,13 +12,13 @@ x.text_for_one_url("https://stackoverflow.com/questions/2612548/extracting-an-at
 # 2 - summarization
 # 3 - sentance
 # 4 - show all
-print("----stackoverflow option 4----")
-pprint.pprint(type(x.option(4)))
+# print("----stackoverflow option 4----")
+# pprint.pprint(type(x.option(4)))
 # get total text from get_url_data class => send to summarization class and summarize
 print("\n----stackoverflow option 2----")
-pprint.pprint(type(x.option(2)))
+print(x.option(2))
 print("\n----stackoverflow option 1----")
-pprint.pprint(type(x.option(1)))
+pprint.pprint((x.option(1)))
 #
 # print("\n\n++++++++++++++++++++quora+++++++++++++++++++++")
 # x.text_for_one_url('https://moviesnmore.quora.com/What-will-be-the-best-movie-of-2021-4')
