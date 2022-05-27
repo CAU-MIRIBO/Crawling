@@ -1,28 +1,26 @@
-from stackoverflow_html import *
-from quora_html import *
 
-from summarization_process import *
 from konlpy.tag import Okt
 
-from html_crawling.keyword_process import keyword_extractor
 from html_crawling.quora_html import Quora
 from html_crawling.stackoverflow_html import Stackoverflow
 from html_crawling.summarization_process import summarization
 from html_crawling.general_website_html import Default
-
+import sys
 okt=Okt()
 
-from keyword_process import *
+from html_crawling.keyword_process import *
 import re
 
 class get_url_data:
     def __init__(self):
         # call only for once (summarization) : time reduction
         self.summ = summarization()
+        #self.err=False
 
     def text_for_one_url(self,url):
         self.url = url  # url link
         # self.url_kind #for url classify
+        self.err=False
         if "stackoverflow.com/questions" in self.url:
             self.process_class = Stackoverflow()
             self.url_kind = 1
@@ -46,13 +44,17 @@ class get_url_data:
                 self.lang = self.isKorean(self.text_all)
             except:
                 #error
-                return -1
+                #sys.exit()
+                self.err=True
 
         if status==0:
             print("status:0")
             #error
             #나중에 하기
-            return -1
+            self.err=True
+
+    def isErr(self):
+        return self.err
 
     def isKorean(self,text):
         hangul = re.compile('[\u3131-\u3163\uac00-\ud7a3]+')
@@ -98,4 +100,4 @@ class get_url_data:
         elif self.url_kind==2:
             return keyword_extractor('yake',self.lang, self.text_all)
         else:
-            return keyword_extractor('yake',self.lang,self.text_all)
+            return keyword_extractor('yake', self.lang, self.text_all)

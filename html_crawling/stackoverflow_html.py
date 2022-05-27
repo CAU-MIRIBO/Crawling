@@ -1,7 +1,3 @@
-from logging import exception
-from tkinter import EW
-from urllib import request
-from attr import attr
 import requests
 from bs4 import BeautifulSoup
 
@@ -191,6 +187,8 @@ class Stackoverflow:
                 ret[-1][1] = i[0]
                 ret[-1][0] = 0
                 # print(ret[-1][1])
+
+        #[[0,"paragraph"],[1,"code"]]
 
         return ret
 

@@ -1,5 +1,3 @@
-from email.mime import application
-
 from flask import Flask, jsonify, session, redirect, url_for, config
 from flask import request as RRR
 from flask_restx import Api, Resource
@@ -43,6 +41,7 @@ connections['count']=0
 
 @app.route('/option1', methods=['POST'])
 def option1():
+    CORS(app)
     data=RRR.get_json()
     url = data['url']
     option1 = data["option1"]
@@ -54,6 +53,7 @@ def option1():
 
 @app.route('/option2', methods=['POST'])
 def option2():
+    CORS(app)
     data=RRR.get_json()
     url = data['url']
     option2 = data["option2"]
@@ -78,17 +78,20 @@ def ajax():
     url=data['url']
     option1 = data["option1"]
     option2 = data["option2"]
-    option3 = data["option3"]
+    #option3 = data["option3"]
     #option4 = data["option4"]
-
-    connections['object'].text_for_one_url(str(url))
 
     res1 = data["option2"]
     res2 = data["option2"]
-    res3 =  data["option2"]
+    #res3 = data["option2"]
     #res4 = None
 
     #일단 3은 하지 말자
+
+    connections['object'].text_for_one_url(str(url))
+    x=connections['object'].isErr()
+    if x==True:
+        return jsonify(result="error")
 
     if option1 =='1':
         res1 = connections['object'].option(1)
@@ -96,15 +99,15 @@ def ajax():
     if option2 =='1':
         res2 = connections['object'].option(2)
         #res2=json.dumps(res2)
-    if option3 =='1':
-        res3 = connections['object'].option(3)
-        json.dumps(res3)
+    # if option3 =='1':
+    #     res3 = connections['object'].option(3)
+    #     json.dumps(res3)
     # if option4 is not None:
     #     res4= x.option(4)
     #     #json.dumps(res4)
 
     #print(res2)
-    return jsonify(result = "success", option1= res1,option2=res2,option3=res3)
+    return jsonify(result = "success", option1= res1,option2=res2)
 
 @app.route('/',methods=['POST'])
 def main():
@@ -136,5 +139,4 @@ def main():
 #         return json.JSONEncoder.default( self , obj )
 
 if __name__ == '__main__':
-
     app.run(debug=True)

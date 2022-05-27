@@ -63,7 +63,13 @@ def refine_content(string):
     f_content = ''.join(f_paragraph)
 
     return f_paragraph, f_content
-
+# test=summarization()
+# #
+# # print(test.summarization_KoBART(text))
+# l,_=refine_content(text)
+#
+# for i in l:
+#     print(test.summarization_KoBART(i))
 
 
 # text="""2022.05.03 화요일

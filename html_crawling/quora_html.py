@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-from selenium_crawling import *
+from html_crawling.selenium_crawling import *
 
 # 코드 설명
 # selenium_crawling.py의 함수 (request_with_selenium) 사용하여 작동함.

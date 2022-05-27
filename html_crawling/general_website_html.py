@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
-from selenium_crawling import *
+from html_crawling.selenium_crawling import *
 from newspaper import Article
-from similarity import *
+from html_crawling.similarity import *
 
 # 5/14 ver
 
