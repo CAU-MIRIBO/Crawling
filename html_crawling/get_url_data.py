@@ -97,8 +97,16 @@ class get_url_data:
     def run_keyword(self):
         if self.url_kind==1:
             #return keyword_extractor('yake',self.lang, self.text_all)
-            return self.keyword_list
+            return self.keyword_to_dict(self.keyword_list)
         elif self.url_kind==2:
-            return keyword_extractor('yake',self.lang, self.text_all)
+            list=keyword_extractor('yake',self.lang, self.text_all)
+            return self.keyword_to_dict(list)
         else:
-            return keyword_extractor('yake', self.lang, self.text_all)
+            list = keyword_extractor('yake', self.lang, self.text_all)
+            return self.keyword_to_dict(list)
+
+    def keyword_to_dict(self,list):
+        somedict = {"keywords": [x for x in list],
+                    }
+        somedict = json.dumps(somedict)
+        return somedict
