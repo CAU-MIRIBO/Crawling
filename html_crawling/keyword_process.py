@@ -12,8 +12,9 @@ def konlpy(text):
     count_dict = [(token, text.count(token)) for token in tokens ]
     ranked_words = sorted(count_dict, key=lambda x:x[1], reverse=True)[:10]
     x=[ keyword for keyword, freq in ranked_words ]
-    print(x)
-    return check_postpositions(x)
+    ret=check_postpositions(x)
+    print(ret)
+    return ret
 
 
 def keyword_extractor(tagger,lang,text):
@@ -39,8 +40,10 @@ def yake(text,lang):
     ls=[]
     for kw in keywords:
         ls.append(kw[0])
-    print(ls)
-    return check_postpositions(ls)
+    #print(ls)
+    ret=check_postpositions(ls)
+    print(ret)
+    return ret
 
 def check_postpositions(keywords):
     postpositions=['i', 'me', 'my', 'myself', 'we', 'our', 'ours', 'ourselves', 'you', "you're", "you've", "you'll", "you'd", 'your',

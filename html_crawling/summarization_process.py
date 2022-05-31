@@ -43,13 +43,13 @@ class summarization:
 
     def summarization_newspaper(self, text):
         res=summarize(text)
-        print(res)
+        #print(res)
         return res
 
     def summarization_BERT(self,text):
         result=self.model_bert(text,min_length=60)  ###
         full=''.join(result)
-        print(full)
+        #print(full)
         return full
 
 # 중복 또는 불필요한 문단 제거 - newspaper_mod에서 사용

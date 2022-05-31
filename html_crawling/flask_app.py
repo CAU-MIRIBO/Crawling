@@ -3,7 +3,7 @@ from flask import request as RRR
 from flask_restx import Api, Resource
 from flask_cors import CORS
 #import urllib
-from html_crawling.get_url_data import get_url_data
+from get_url_data import get_url_data
 import json
 from flask_sqlalchemy import SQLAlchemy
 
