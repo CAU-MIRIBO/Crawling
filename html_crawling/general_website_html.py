@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-from html_crawling.selenium_crawling import *
+from selenium_crawling import *
 from newspaper import Article
 from similarity import *
 
