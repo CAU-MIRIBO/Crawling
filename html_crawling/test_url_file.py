@@ -67,7 +67,7 @@ url='https://ko.wikipedia.org/wiki/%EB%8F%99%EB%AC%BC' # 동물 위키피디아 
 # arti.crawling_article(url)
 # title, contents=request_through_url(url)
 
-arti=Default()
-status, title, para, content_all=arti.general_website_process(url)
-arti.print_test_result(title, para)
-print(status)
+# arti=Default()
+# status, title, para, content_all=arti.general_website_process(url)
+# arti.print_test_result(title, para)
+# print(status)
