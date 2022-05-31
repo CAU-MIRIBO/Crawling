@@ -2,10 +2,10 @@ import json
 
 from konlpy.tag import Okt
 
-from html_crawling.quora_html import Quora
-from html_crawling.stackoverflow_html import Stackoverflow
-from html_crawling.summarization_process import summarization
-from html_crawling.general_website_html import Default
+from quora_html import Quora
+from stackoverflow_html import Stackoverflow
+from summarization_process import summarization
+from general_website_html import Default
 import sys
 okt=Okt()
 
