@@ -32,6 +32,7 @@ class Quora:
             # selenium으로 html소스 가져오기 [head, body]
             head, body=request_with_selenium(url)
         except Exception as eq:
+            print("Error in quora_html.py - somehow selenium not working\n >>>> ")
             print(eq)
             return quo_ques, quo_ques_cont, quo_answer_list, quo_full_answer, status
 
@@ -39,19 +40,23 @@ class Quora:
         try:
             body_soup=BeautifulSoup(body, 'html.parser')
         except Exception as eq:
+            print("Error in quora_html.py - BeautifulSoup parser not working\n")
             print(eq)
 
         # get meta propterty
         try:
             q_title, q_type, q_image, q_description=self.get_meta_property(head)
+            quo_ques=q_title
         except Exception as eq:
+            print("Error in  quora_html.py meta property - 근데 이건 오류 나도됨 걍 패쓰~~!!\n ")
             print(eq)
         
         # q_title // q_answer
         try: 
-            q_title=body_soup.find(attrs={'class':'q-text puppeteer_test_question_title'}).text
+            quo_ques=body_soup.find(attrs={'class':'q-text puppeteer_test_question_title'}).text
             q_answer_box=body_soup.find(attrs={'class':'q-box spacing_log_answer_content puppeteer_test_answer_content'})
         except Exception as eq:
+            print("Error in quora_html.py - wrong in getting title or answer\n ")
             print(eq)
 
         # answer paragraph 별로 리스트에 저장
@@ -59,18 +64,17 @@ class Quora:
             q_answer_list=q_answer_box.find_all('p')
             
             for answ in q_answer_list:
-                quo_answer_list.append(answ.text)        
-                print(answ.text)
+                quo_answer_list.append(answ.text)
 
             # get whole answer in 1 variable
             quo_full_answer=q_answer_box.text
         except Exception as eq:
-            print(eq) 
+            print("Error in quora_html.py - answer paragraph 부분 : 걍 잘못되었을 때 넘어가라구 패쓰~\n ") 
 
         ## for debugging
         # self.print_test_result(q_title, quo_answer_list)
-        
-        quo_ques=q_title
+    
+        quo_ques, quo_ques_cont, quo_answer_list, quo_full_answer, status=self.fill_output(quo_ques, quo_ques_cont, quo_answer_list, quo_full_answer, status)
         return quo_ques, quo_ques_cont, quo_answer_list, quo_full_answer, status
 
     # meta data 보조 정보로 크롤    
@@ -98,16 +102,33 @@ class Quora:
         for a in answ:
             print(a)
 
+    def fill_output(self, quo_ques, quo_ques_cont, quo_answer_list, quo_full_answer, status):
+        count=0
+        if not quo_ques :
+            quo_ques=0
+            count+=1
+        
+        if not quo_full_answer:
+            quo_full_answer=0
+            count+=1
 
-# ques, answer=request_through_url(url)
-# https://www.quora.com/How-is-the-culture-of-Jeju-Island-different-from-the-rest-of-South-Korea
-# https://www.quora.com/What-is-the-strangest-culture-shock-you-experienced-when-visiting-South-Korea-for-the-first-time
-# https://www.quora.com/What-did-you-experience-in-South-Korea-that-would-never-happen-in-Japan
-# url='https://www.quora.com/Is-Hades-the-best-game-of-2020'
+        if count==2:
+            status=0
+        else:
+            status=200
+        
+            
+        return quo_ques, quo_ques_cont, quo_answer_list, quo_full_answer, status
+
+# # ques, answer=request_through_url(url)
+# # https://www.quora.com/How-is-the-culture-of-Jeju-Island-different-from-the-rest-of-South-Korea
+# # url='https://www.quora.com/Is-Hades-the-best-game-of-2020'
 
 # # 예시 실행 코드
-# url='https://moviesnmore.quora.com/What-will-be-the-best-movie-of-2021-4'
+# url='https://moviesnmore.quora.com/What-will-be-the-best-movie-of-2021-' --url  틀린 경우 0
 # ques=Quora()
 # a,b,c,d,e=ques.quora_process(url)
+# # ques.print_test_result(a, c)
+# print(e)
 
         
