@@ -26,9 +26,10 @@ class get_url_data:
             self.process_class = Stackoverflow()
             self.url_kind = 1
             self.ques_header, self.ques_content_str,self.selected_ans_content_str,self.ques_all_json, self.keyword_list, status=self.process_class.stackOverflow_process(url)
-            self.text_all =self.process_class.get_total_text(self.ques_header, self.ques_content_str,
-                                                             self.selected_ans_content_str)
-            self.lang=self.isKorean(self.text_all)
+            if status!=0:
+                self.text_all =self.process_class.get_total_text(self.ques_header, self.ques_content_str,
+                                                                 self.selected_ans_content_str)
+                self.lang=self.isKorean(self.text_all)
         elif "quora.com/" in self.url:
             self.process_class = Quora()
             self.url_kind = 2

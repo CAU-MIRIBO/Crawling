@@ -1,13 +1,13 @@
 import torch
-from transformers import PreTrainedTokenizerFast, BartForConditionalGeneration #KoBART
+#from transformers import PreTrainedTokenizerFast, BartForConditionalGeneration #KoBART
 from gensim.summarization.summarizer import summarize #newspaper
 from summarizer import Summarizer #BERT
 
 
 class summarization:
     def __init__(self):
-        self.tokenizer = PreTrainedTokenizerFast.from_pretrained('digit82/kobart-summarization')
-        self.model = BartForConditionalGeneration.from_pretrained('digit82/kobart-summarization')
+        #self.tokenizer = PreTrainedTokenizerFast.from_pretrained('digit82/kobart-summarization')
+        #self.model = BartForConditionalGeneration.from_pretrained('digit82/kobart-summarization')
         self.model_bert=Summarizer()
 
 
@@ -29,23 +29,27 @@ class summarization:
 
         if lang=='kr':
             return self.summarization_newspaper(text)
+        # print("newspaper:")
+        # print(self.summarization_newspaper(text))
+        # print("bart:")
         return self.summarization_BERT(text)
 
-    def summarization_KoBART(self, text):
-        # print(text)
-        raw_input_ids = self.tokenizer.encode(text)
-        input_ids = [self.tokenizer.bos_token_id] + raw_input_ids + [self.tokenizer.eos_token_id]
-        summary_ids = self.model.generate(torch.tensor([input_ids]), num_beams=4, max_length=512, eos_token_id=1)  ###
-        return self.tokenizer.decode(summary_ids.squeeze().tolist(), skip_special_tokens=True)
+    # def summarization_KoBART(self, text):
+    #     # print(text)
+    #     raw_input_ids = self.tokenizer.encode(text)
+    #     input_ids = [self.tokenizer.bos_token_id] + raw_input_ids + [self.tokenizer.eos_token_id]
+    #     summary_ids = self.model.generate(torch.tensor([input_ids]), num_beams=4, max_length=512, eos_token_id=1)  ###
+    #     return self.tokenizer.decode(summary_ids.squeeze().tolist(), skip_special_tokens=True)
 
     def summarization_newspaper(self, text):
-        print(text)
-        print(summarize(text))
-        return summarize(text)
+        res=summarize(text)
+        print(res)
+        return res
 
     def summarization_BERT(self,text):
         result=self.model_bert(text,min_length=60)  ###
         full=''.join(result)
+        print(full)
         return full
 
 # 중복 또는 불필요한 문단 제거 - newspaper_mod에서 사용

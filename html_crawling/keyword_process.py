@@ -12,6 +12,7 @@ def konlpy(text):
     count_dict = [(token, text.count(token)) for token in tokens ]
     ranked_words = sorted(count_dict, key=lambda x:x[1], reverse=True)[:10]
     x=[ keyword for keyword, freq in ranked_words ]
+    print(x)
     return check_postpositions(x)
 
 

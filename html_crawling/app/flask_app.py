@@ -81,32 +81,39 @@ def ajax():
     #option3 = data["option3"]
     #option4 = data["option4"]
 
-    res1 = data["option2"]
-    res2 = data["option2"]
+    res1 = "null"
+    res2 = "null"
     #res3 = data["option2"]
     #res4 = None
 
     #일단 3은 하지 말자
 
-    connections['object'].text_for_one_url(str(url))
+    try:
+        connections['object'].text_for_one_url(str(url))
+    except Exception as e:
+        print(e)
+        return jsonify(result="error")
+
     x=connections['object'].isErr()
     if x==True:
         return jsonify(result="error")
 
-    if option1 =='1':
-        res1 = connections['object'].option(1)
-        #json.dumps(res1)
-    if option2 =='1':
-        res2 = connections['object'].option(2)
-        #res2=json.dumps(res2)
-    # if option3 =='1':
-    #     res3 = connections['object'].option(3)
-    #     json.dumps(res3)
-    # if option4 is not None:
-    #     res4= x.option(4)
-    #     #json.dumps(res4)
 
-    #print(res2)
+    if option1 =='1':
+        try:
+            res1 = connections['object'].option(1)
+        except Exception as e:
+            print(e)
+            res1="exception:err"
+
+    if option2 =='1':
+        try:
+            res2 = connections['object'].option(2)
+        except Exception as e:
+            print(e)
+            res2="exception:err"
+
+
     return jsonify(result = "success", option1= res1,option2=res2)
 
 @app.route('/',methods=['POST'])

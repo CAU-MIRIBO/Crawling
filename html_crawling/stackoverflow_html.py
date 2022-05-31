@@ -32,6 +32,9 @@ class Stackoverflow:
         selected_ans_content=0
         keyword_list=[0]
         status=0
+        ques_content_str=0
+        selected_ans_content_str=0
+        ques_all_json=0
 
         # Request 부분
         try:
@@ -39,16 +42,13 @@ class Stackoverflow:
         except Exception as ex:
             print('Exception in request_throught_url function')
             print(ex)
-            return ques_header, ques_content, selected_ans_content, keyword_list
+            return ques_header, ques_content_str,selected_ans_content_str,ques_all_json, keyword_list, status
 
         # status 마다 어케 대처할지 생각해봐야할듯
         if status==200:
             pass
-        elif status==100:
-            # do something
-            s=2
         else:
-            s=2
+            return ques_header, ques_content_str,selected_ans_content_str,ques_all_json, keyword_list, status
 
         # Question header - 질문 제목 뜯기 ===============================
         try:
