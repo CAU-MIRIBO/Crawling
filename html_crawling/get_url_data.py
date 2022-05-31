@@ -22,6 +22,7 @@ class get_url_data:
         self.url = url  # url link
         # self.url_kind #for url classify
         self.err=False
+        status=200
         if "stackoverflow.com/questions" in self.url:
             self.process_class = Stackoverflow()
             self.url_kind = 1
@@ -47,6 +48,8 @@ class get_url_data:
             except:
                 #error
                 #sys.exit()
+                print("else_ try except")
+                status=0
                 self.err=True
 
         if status==0:
