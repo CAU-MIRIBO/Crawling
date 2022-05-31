@@ -65,3 +65,4 @@ url='https://velog.io/@dlwocks31/translation-project-management-at-big-tech'
 arti=Default()
 status, title, para, content_all=arti.general_website_process(url)
 arti.print_test_result(title, para)
+print(status)
