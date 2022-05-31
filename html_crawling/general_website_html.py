@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
-from html_crawling.selenium_crawling import *
+from selenium_crawling import *
 from newspaper import Article
-from html_crawling.similarity import *
+from similarity import *
 
 # 5/14 ver
 
@@ -69,8 +69,8 @@ class Default:
             status=0
         
         title, content_paragraph, content_all=self.fill_output(title, content_paragraph, content_all)
-        if content_all!=0:
-            content_paragraph, content_all=compute_similarity(content_all)
+        # if content_all!=0:
+            # content_paragraph, content_all=compute_similarity(content_all)
             
         return status, title, content_paragraph, content_all
     
@@ -131,7 +131,7 @@ class Default:
         # check title and content
         if not self.check_output(title, content_all):
             title, a_description=self.check_header_metadata(head)
-            paragraph, content=self.refine_content(a_description)
+            paragraph, content_all=self.refine_content(a_description)
             status=200
         else:
             status=200
@@ -146,7 +146,7 @@ class Default:
         l_head=BeautifulSoup(head, 'html.parser')
         # g_type=l_head.find('meta', {'property' :'og:type'}).attrs['content']
         g_title=l_head.find('meta', {'property':'og:title'}).attrs['content']
-        g_description=l_head.find('meta', {'property': 'og:description'}).atrrs['content']
+        g_description=l_head.find('meta', {'property': 'og:description'}).attrs['content']
         
         return g_title, g_description
         

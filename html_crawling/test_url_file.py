@@ -23,7 +23,7 @@ url='https://www.ajunews.com/view/20211215155407703'
 # url='https://en.wikipedia.org/wiki/Game_of_Thrones'
 # url='https://www.rottentomatoes.com/tv/game_of_thrones'
 # url='https://brooklyn99.fandom.com/wiki/Raymond_Holt'
-# url='https://www.facebook.com/GameOfThrones/'         # 페북 안됨
+url='https://www.facebook.com/GameOfThrones/'         # 페북 안됨
 # url='https://www.rottentomatoes.com/tv/game_of_thrones'
 # url='http://cau.ac.kr/~bongbong/multicore22/'
 # url='https://twitter.com/HouseofDragon/status/1509193733585076228?cxt=HHwWiICsuYzt3fEpAAAA'
@@ -55,6 +55,11 @@ url='https://velog.io/@dlwocks31/translation-project-management-at-big-tech'
 # url='https://velog.io/@junh0328/%ED%94%84%EB%A1%A0%ED%8A%B8-%EC%97%94%EB%93%9C-%EB%A9%B4%EC%A0%91-%EC%A4%80%EB%B9%84-%ED%95%98%EC%8B%A4%EB%B6%84'
 # 이건 셀레니움으로 들어가기는 하는데 되긴함 - 이 웹사이트느 안들어가는걸루
 # url='https://velog.io/@jay/elon-musk-dont-follow-the-trend'
+url='https://blog.naver.com/maximusc/222698515250' 
+url='https://velog.io/@dlwocks31/translation-project-management-at-big-tech'
+url='https://namu.wiki/w/Hades(%EA%B2%8C%EC%9E%84)' 
+url='http://cau.ac.kr/~bongbong/multicore22/'
+url='https://ko.wikipedia.org/wiki/%EB%8F%99%EB%AC%BC' # 동물 위키피디아 되기는 한다만... selenium으로
 
 # tt, ti, hapy=arti.crawl_article_lastchance(url)
 # arti.crawl_general_concept(url)
@@ -65,3 +70,4 @@ url='https://velog.io/@dlwocks31/translation-project-management-at-big-tech'
 arti=Default()
 status, title, para, content_all=arti.general_website_process(url)
 arti.print_test_result(title, para)
+print(status)

@@ -20,10 +20,9 @@ def request_with_selenium(Url):
     # Apply options
     driver = webdriver.Chrome(executable_path='C:\\Users\\hjson\\Downloads\\chromedriver.exe', options=options)
     # driver.implicitly_wait(3)
-    
     driver.get(Url)
     
-    print(driver.current_url)
+    # print(driver.current_url)
     
     # 페이지 내에서 값 읽어오기
     head=driver.find_element_by_tag_name('head')
@@ -55,7 +54,6 @@ def request_with_selenium_raw(Url):
     # Apply options
     driver = webdriver.Chrome(executable_path='C:\\Users\\hjson\\Downloads\\chromedriver.exe', options=options)
     # driver.implicitly_wait(3)
-    
     driver.get(Url)
     # print(driver.current_url)
     
@@ -69,65 +67,20 @@ def request_with_selenium_raw(Url):
     # driver.close() --> driver 닫혀도 되나?
     
     return head_src, body_src, driver
-
-def request_with_ajax(Url):
-    jscode='''<><script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script><script type="text/javascript">
-
-    var url1="https://www.ajunews.com/view/20211215155407703"
-    function loadAjax(){$.ajax({
-        type: 'get',
-        url: "https://proxyformiribo.herokuapp.com/" + url1,
-        async: true,
-        success: function (result) {
-            console.log("[requestPsotBodyJson] : [result] :" + result.status);
-            console.log(result);
-        },
-        error: function (e) {
-            console.log("[requestPostBodyJson] : [error] : " + e.responseText);
-            console.log(e.response);
-        },
-        complete: function (_data, textStatus) {
-            console.log("[requestPostBodyJson] : [complete] : " + textStatus);
-        }
-        return result;
-    })}
-    </script></>'''
-    jscode='''
-    var url1="https://www.ajunews.com/view/20211215155407703"
-    function loadAjax(){$.ajax({
-        type: 'get',
-        url: "https://proxyformiribo.herokuapp.com/" + url1,
-        async: true,
-        success: function (result) {
-            console.log("[requestPsotBodyJson] : [result] :" + result.status);
-            console.log(result);
-        },
-        error: function (e) {
-            console.log("[requestPostBodyJson] : [error] : " + e.responseText);
-            console.log(e.response);
-        },
-        complete: function (_data, textStatus) {
-            console.log("[requestPostBodyJson] : [complete] : " + textStatus);
-        }
-        return result;
-    })}'''
-
-    #result=js2py.eval_js(jscode)
-    #print(result)
-    print("wow")
-
-def print_test_result(title, contents):
+        
+# def print_test_result(title, contents):
     
-    print('================process done========================')
-    print('\n----------Title-----------\n')
+#     print('================process done========================')
+#     print('\n----------Title-----------\n')
+#     print(title)
+#     print('\n-------------Content---------------\n')
+#     print(contents)
+#     print('\n')
     
-    print(title)
-    print('\n-------------Content---------------\n')
-    print(contents)
-    print('\n')
-
 # url='https://www.quora.com/How-is-the-culture-of-Jeju-Island-different-from-the-rest-of-South-Korea'
 # 'https://www.hani.co.kr/arti/culture/culture_general/1023318.html'
-# url='https://www.ajunews.com/view/20211215155407703'
+# 'https://www.ajunews.com/view/20211215155407703'
 
 # print_test_result(title,contents)
+
+# request_with_selenium(url)
