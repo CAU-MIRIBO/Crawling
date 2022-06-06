@@ -11,11 +11,11 @@ Website Crawling + Summarize + Keyword + other processes
 ##### git clone ~
 ##### ----
 #### 가상환경 만들기
-##### 2. python -m venv venv
+##### 2. python -m venv venv이름
 ##### 3. venv/Scripts/activate.bat
 
 #### 가상환경에서
-##### 1. python 설치
+##### 1. python 3.8 설치
 ##### 2. pip 설치
 ##### 확인
 
