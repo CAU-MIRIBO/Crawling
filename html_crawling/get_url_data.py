@@ -9,7 +9,7 @@ from general_website_html import Default
 import sys
 okt=Okt()
 
-from html_crawling.keyword_process import *
+from keyword_process import *
 import re
 
 class get_url_data:
